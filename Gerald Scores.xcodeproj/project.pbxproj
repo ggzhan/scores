@@ -17,6 +17,7 @@
 		325E72ED1DFEFFB300AA7E2E /* Gerald_ScoresUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72EC1DFEFFB300AA7E2E /* Gerald_ScoresUITests.swift */; };
 		325E72FB1DFF001400AA7E2E /* RecordingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72FA1DFF001400AA7E2E /* RecordingCollectionViewCell.swift */; };
 		325E72FD1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72FC1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift */; };
+		32944F411E104E8D00DCF22B /* SmithWaterman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32388D1B1E0C338E00A9DE9E /* SmithWaterman.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,6 +276,7 @@
 				325E72FB1DFF001400AA7E2E /* RecordingCollectionViewCell.swift in Sources */,
 				325E72CF1DFEFFB300AA7E2E /* RecorderViewController.swift in Sources */,
 				32388D1A1E0C322A00A9DE9E /* FFT.swift in Sources */,
+				32944F411E104E8D00DCF22B /* SmithWaterman.swift in Sources */,
 				325E72CD1DFEFFB300AA7E2E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
