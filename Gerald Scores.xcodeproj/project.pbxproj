@@ -1,0 +1,548 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		32388D1A1E0C322A00A9DE9E /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320690EC1E046E15003A0F71 /* FFT.swift */; };
+		325E72CD1DFEFFB300AA7E2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72CC1DFEFFB300AA7E2E /* AppDelegate.swift */; };
+		325E72CF1DFEFFB300AA7E2E /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72CE1DFEFFB300AA7E2E /* RecorderViewController.swift */; };
+		325E72D21DFEFFB300AA7E2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 325E72D01DFEFFB300AA7E2E /* Main.storyboard */; };
+		325E72D41DFEFFB300AA7E2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 325E72D31DFEFFB300AA7E2E /* Assets.xcassets */; };
+		325E72D71DFEFFB300AA7E2E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 325E72D51DFEFFB300AA7E2E /* LaunchScreen.storyboard */; };
+		325E72E21DFEFFB300AA7E2E /* Gerald_ScoresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72E11DFEFFB300AA7E2E /* Gerald_ScoresTests.swift */; };
+		325E72ED1DFEFFB300AA7E2E /* Gerald_ScoresUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72EC1DFEFFB300AA7E2E /* Gerald_ScoresUITests.swift */; };
+		325E72FB1DFF001400AA7E2E /* RecordingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72FA1DFF001400AA7E2E /* RecordingCollectionViewCell.swift */; };
+		325E72FD1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72FC1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		325E72DE1DFEFFB300AA7E2E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 325E72C11DFEFFB300AA7E2E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 325E72C81DFEFFB300AA7E2E;
+			remoteInfo = "Gerald Scores";
+		};
+		325E72E91DFEFFB300AA7E2E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 325E72C11DFEFFB300AA7E2E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 325E72C81DFEFFB300AA7E2E;
+			remoteInfo = "Gerald Scores";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		320690EC1E046E15003A0F71 /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
+		32388D1B1E0C338E00A9DE9E /* SmithWaterman.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmithWaterman.swift; sourceTree = "<group>"; };
+		325E72C91DFEFFB300AA7E2E /* Gerald Scores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gerald Scores.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		325E72CC1DFEFFB300AA7E2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		325E72CE1DFEFFB300AA7E2E /* RecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
+		325E72D11DFEFFB300AA7E2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		325E72D31DFEFFB300AA7E2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		325E72D61DFEFFB300AA7E2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		325E72D81DFEFFB300AA7E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		325E72DD1DFEFFB300AA7E2E /* Gerald ScoresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Gerald ScoresTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		325E72E11DFEFFB300AA7E2E /* Gerald_ScoresTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gerald_ScoresTests.swift; sourceTree = "<group>"; };
+		325E72E31DFEFFB300AA7E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		325E72E81DFEFFB300AA7E2E /* Gerald ScoresUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Gerald ScoresUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		325E72EC1DFEFFB300AA7E2E /* Gerald_ScoresUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gerald_ScoresUITests.swift; sourceTree = "<group>"; };
+		325E72EE1DFEFFB300AA7E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		325E72FA1DFF001400AA7E2E /* RecordingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingCollectionViewCell.swift; sourceTree = "<group>"; };
+		325E72FC1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsCollectionViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		325E72C61DFEFFB300AA7E2E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		325E72DA1DFEFFB300AA7E2E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		325E72E51DFEFFB300AA7E2E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		325E72C01DFEFFB300AA7E2E = {
+			isa = PBXGroup;
+			children = (
+				325E72CB1DFEFFB300AA7E2E /* Gerald Scores */,
+				325E72E01DFEFFB300AA7E2E /* Gerald ScoresTests */,
+				325E72EB1DFEFFB300AA7E2E /* Gerald ScoresUITests */,
+				325E72CA1DFEFFB300AA7E2E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		325E72CA1DFEFFB300AA7E2E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				325E72C91DFEFFB300AA7E2E /* Gerald Scores.app */,
+				325E72DD1DFEFFB300AA7E2E /* Gerald ScoresTests.xctest */,
+				325E72E81DFEFFB300AA7E2E /* Gerald ScoresUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		325E72CB1DFEFFB300AA7E2E /* Gerald Scores */ = {
+			isa = PBXGroup;
+			children = (
+				325E72CC1DFEFFB300AA7E2E /* AppDelegate.swift */,
+				325E72CE1DFEFFB300AA7E2E /* RecorderViewController.swift */,
+				32388D1B1E0C338E00A9DE9E /* SmithWaterman.swift */,
+				325E72FA1DFF001400AA7E2E /* RecordingCollectionViewCell.swift */,
+				325E72FC1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift */,
+				320690EC1E046E15003A0F71 /* FFT.swift */,
+				325E72D01DFEFFB300AA7E2E /* Main.storyboard */,
+				325E72D31DFEFFB300AA7E2E /* Assets.xcassets */,
+				325E72D51DFEFFB300AA7E2E /* LaunchScreen.storyboard */,
+				325E72D81DFEFFB300AA7E2E /* Info.plist */,
+			);
+			path = "Gerald Scores";
+			sourceTree = "<group>";
+		};
+		325E72E01DFEFFB300AA7E2E /* Gerald ScoresTests */ = {
+			isa = PBXGroup;
+			children = (
+				325E72E11DFEFFB300AA7E2E /* Gerald_ScoresTests.swift */,
+				325E72E31DFEFFB300AA7E2E /* Info.plist */,
+			);
+			path = "Gerald ScoresTests";
+			sourceTree = "<group>";
+		};
+		325E72EB1DFEFFB300AA7E2E /* Gerald ScoresUITests */ = {
+			isa = PBXGroup;
+			children = (
+				325E72EC1DFEFFB300AA7E2E /* Gerald_ScoresUITests.swift */,
+				325E72EE1DFEFFB300AA7E2E /* Info.plist */,
+			);
+			path = "Gerald ScoresUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		325E72C81DFEFFB300AA7E2E /* Gerald Scores */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 325E72F11DFEFFB300AA7E2E /* Build configuration list for PBXNativeTarget "Gerald Scores" */;
+			buildPhases = (
+				325E72C51DFEFFB300AA7E2E /* Sources */,
+				325E72C61DFEFFB300AA7E2E /* Frameworks */,
+				325E72C71DFEFFB300AA7E2E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Gerald Scores";
+			productName = "Gerald Scores";
+			productReference = 325E72C91DFEFFB300AA7E2E /* Gerald Scores.app */;
+			productType = "com.apple.product-type.application";
+		};
+		325E72DC1DFEFFB300AA7E2E /* Gerald ScoresTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 325E72F41DFEFFB300AA7E2E /* Build configuration list for PBXNativeTarget "Gerald ScoresTests" */;
+			buildPhases = (
+				325E72D91DFEFFB300AA7E2E /* Sources */,
+				325E72DA1DFEFFB300AA7E2E /* Frameworks */,
+				325E72DB1DFEFFB300AA7E2E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				325E72DF1DFEFFB300AA7E2E /* PBXTargetDependency */,
+			);
+			name = "Gerald ScoresTests";
+			productName = "Gerald ScoresTests";
+			productReference = 325E72DD1DFEFFB300AA7E2E /* Gerald ScoresTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		325E72E71DFEFFB300AA7E2E /* Gerald ScoresUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 325E72F71DFEFFB300AA7E2E /* Build configuration list for PBXNativeTarget "Gerald ScoresUITests" */;
+			buildPhases = (
+				325E72E41DFEFFB300AA7E2E /* Sources */,
+				325E72E51DFEFFB300AA7E2E /* Frameworks */,
+				325E72E61DFEFFB300AA7E2E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				325E72EA1DFEFFB300AA7E2E /* PBXTargetDependency */,
+			);
+			name = "Gerald ScoresUITests";
+			productName = "Gerald ScoresUITests";
+			productReference = 325E72E81DFEFFB300AA7E2E /* Gerald ScoresUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		325E72C11DFEFFB300AA7E2E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "Gerald Z";
+				TargetAttributes = {
+					325E72C81DFEFFB300AA7E2E = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = GWEVMB4VDF;
+						ProvisioningStyle = Automatic;
+					};
+					325E72DC1DFEFFB300AA7E2E = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 325E72C81DFEFFB300AA7E2E;
+					};
+					325E72E71DFEFFB300AA7E2E = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 325E72C81DFEFFB300AA7E2E;
+					};
+				};
+			};
+			buildConfigurationList = 325E72C41DFEFFB300AA7E2E /* Build configuration list for PBXProject "Gerald Scores" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 325E72C01DFEFFB300AA7E2E;
+			productRefGroup = 325E72CA1DFEFFB300AA7E2E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				325E72C81DFEFFB300AA7E2E /* Gerald Scores */,
+				325E72DC1DFEFFB300AA7E2E /* Gerald ScoresTests */,
+				325E72E71DFEFFB300AA7E2E /* Gerald ScoresUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		325E72C71DFEFFB300AA7E2E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				325E72D71DFEFFB300AA7E2E /* LaunchScreen.storyboard in Resources */,
+				325E72D41DFEFFB300AA7E2E /* Assets.xcassets in Resources */,
+				325E72D21DFEFFB300AA7E2E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		325E72DB1DFEFFB300AA7E2E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		325E72E61DFEFFB300AA7E2E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		325E72C51DFEFFB300AA7E2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				325E72FD1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift in Sources */,
+				325E72FB1DFF001400AA7E2E /* RecordingCollectionViewCell.swift in Sources */,
+				325E72CF1DFEFFB300AA7E2E /* RecorderViewController.swift in Sources */,
+				32388D1A1E0C322A00A9DE9E /* FFT.swift in Sources */,
+				325E72CD1DFEFFB300AA7E2E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		325E72D91DFEFFB300AA7E2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				325E72E21DFEFFB300AA7E2E /* Gerald_ScoresTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		325E72E41DFEFFB300AA7E2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				325E72ED1DFEFFB300AA7E2E /* Gerald_ScoresUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		325E72DF1DFEFFB300AA7E2E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 325E72C81DFEFFB300AA7E2E /* Gerald Scores */;
+			targetProxy = 325E72DE1DFEFFB300AA7E2E /* PBXContainerItemProxy */;
+		};
+		325E72EA1DFEFFB300AA7E2E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 325E72C81DFEFFB300AA7E2E /* Gerald Scores */;
+			targetProxy = 325E72E91DFEFFB300AA7E2E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		325E72D01DFEFFB300AA7E2E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				325E72D11DFEFFB300AA7E2E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		325E72D51DFEFFB300AA7E2E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				325E72D61DFEFFB300AA7E2E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		325E72EF1DFEFFB300AA7E2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		325E72F01DFEFFB300AA7E2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		325E72F21DFEFFB300AA7E2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = GWEVMB4VDF;
+				INFOPLIST_FILE = "Gerald Scores/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gzhang.Gerald-Scores";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		325E72F31DFEFFB300AA7E2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = GWEVMB4VDF;
+				INFOPLIST_FILE = "Gerald Scores/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gzhang.Gerald-Scores";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		325E72F51DFEFFB300AA7E2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Gerald ScoresTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gzhang.Gerald-ScoresTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gerald Scores.app/Gerald Scores";
+			};
+			name = Debug;
+		};
+		325E72F61DFEFFB300AA7E2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Gerald ScoresTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gzhang.Gerald-ScoresTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gerald Scores.app/Gerald Scores";
+			};
+			name = Release;
+		};
+		325E72F81DFEFFB300AA7E2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = "Gerald ScoresUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gzhang.Gerald-ScoresUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = "Gerald Scores";
+			};
+			name = Debug;
+		};
+		325E72F91DFEFFB300AA7E2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = "Gerald ScoresUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gzhang.Gerald-ScoresUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = "Gerald Scores";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		325E72C41DFEFFB300AA7E2E /* Build configuration list for PBXProject "Gerald Scores" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				325E72EF1DFEFFB300AA7E2E /* Debug */,
+				325E72F01DFEFFB300AA7E2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		325E72F11DFEFFB300AA7E2E /* Build configuration list for PBXNativeTarget "Gerald Scores" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				325E72F21DFEFFB300AA7E2E /* Debug */,
+				325E72F31DFEFFB300AA7E2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		325E72F41DFEFFB300AA7E2E /* Build configuration list for PBXNativeTarget "Gerald ScoresTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				325E72F51DFEFFB300AA7E2E /* Debug */,
+				325E72F61DFEFFB300AA7E2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		325E72F71DFEFFB300AA7E2E /* Build configuration list for PBXNativeTarget "Gerald ScoresUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				325E72F81DFEFFB300AA7E2E /* Debug */,
+				325E72F91DFEFFB300AA7E2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 325E72C11DFEFFB300AA7E2E /* Project object */;
+}
