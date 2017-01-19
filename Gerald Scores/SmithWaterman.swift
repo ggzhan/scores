@@ -112,10 +112,10 @@ class OnlineAlignment {
     var maxima: [Float] = []
     var maximaPositions: [Float] = []
     var positions: [Float] = []
-    var refFeatures:[Float]
+    var refFeatures:[[Float]]
     var gapScore: Float
     
-    init(refFeatures: [Float], gapScore: Float = -1) {
+    init(refFeatures: [[Float]], gapScore: Float = -1) {
         reset()
         self.refFeatures = refFeatures
         self.gapScore = gapScore
@@ -133,7 +133,7 @@ class OnlineAlignment {
         var maxValue: Float
         var nextPos : Float
         for i in 1...(n+1){
-            match = prevRow[i-1] + scoreFunction(v1: v, v2: refFeatures) // Alex code has refFeatures[i-1]. Why?
+            match = prevRow[i-1] + scoreFunction(v1: v, v2: refFeatures[i-1])
             delete = prevRow[i] + gapScore
             insert = nextRow[i-1] + gapScore
             
