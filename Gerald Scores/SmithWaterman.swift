@@ -31,18 +31,17 @@ func all(v1: [Float], v2: [Float]) -> Bool {
 
 // notes by Alex: Seems to be faster for vectors of length 12 (Chromas). return 1.0 - cosine(v1, v2)
 func cosine_similarity(v1: [Float], v2: [Float]) -> Float {
-    var v1IsZero: Bool = false
-    var v1IsZeroFunc: Bool{
+ 
+    var v1IsZero: Bool{
         for i in 0...v1.count-1 {
-            if (i != 0) {return false}
+            if (v1[i] != 0) {return false}
         }
         return true
     }
     
-    var v2IsZero: Bool = false
-    var v2IsZeroFunc: Bool{
-        for i in v2 {
-            if (i != 0) {return false}
+    var v2IsZero: Bool{
+        for i in 0...v2.count-1 {
+            if (v2[i] != 0) {return false}
         }
         return true
     }

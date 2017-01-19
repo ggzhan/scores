@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		32388D1A1E0C322A00A9DE9E /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320690EC1E046E15003A0F71 /* FFT.swift */; };
+		324498C41E3166CD00F549AB /* wav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324498C31E3166CD00F549AB /* wav.swift */; };
 		325259DD1E30F7FA004C954E /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325259DC1E30F7FA004C954E /* Misc.swift */; };
 		325E72CD1DFEFFB300AA7E2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72CC1DFEFFB300AA7E2E /* AppDelegate.swift */; };
 		325E72CF1DFEFFB300AA7E2E /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72CE1DFEFFB300AA7E2E /* RecorderViewController.swift */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		320690EC1E046E15003A0F71 /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
 		32388D1B1E0C338E00A9DE9E /* SmithWaterman.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmithWaterman.swift; sourceTree = "<group>"; };
+		324498C31E3166CD00F549AB /* wav.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wav.swift; sourceTree = "<group>"; };
 		325259DC1E30F7FA004C954E /* Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
 		325E72C91DFEFFB300AA7E2E /* Gerald Scores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gerald Scores.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		325E72CC1DFEFFB300AA7E2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				32A3FF4D1E2FBC54002FF2EC /* Kernels.swift */,
 				32A3FF4F1E2FBCD0002FF2EC /* Chroma.swift */,
 				325259DC1E30F7FA004C954E /* Misc.swift */,
+				324498C31E3166CD00F549AB /* wav.swift */,
 				325E72D01DFEFFB300AA7E2E /* Main.storyboard */,
 				325E72D31DFEFFB300AA7E2E /* Assets.xcassets */,
 				325E72D51DFEFFB300AA7E2E /* LaunchScreen.storyboard */,
@@ -287,6 +290,7 @@
 				325259DD1E30F7FA004C954E /* Misc.swift in Sources */,
 				325E72CF1DFEFFB300AA7E2E /* RecorderViewController.swift in Sources */,
 				32A3FF4E1E2FBC54002FF2EC /* Kernels.swift in Sources */,
+				324498C41E3166CD00F549AB /* wav.swift in Sources */,
 				32388D1A1E0C322A00A9DE9E /* FFT.swift in Sources */,
 				32944F411E104E8D00DCF22B /* SmithWaterman.swift in Sources */,
 				325E72CD1DFEFFB300AA7E2E /* AppDelegate.swift in Sources */,
