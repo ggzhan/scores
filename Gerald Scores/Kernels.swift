@@ -34,9 +34,9 @@ func generate_chroma_kernel(N: Int, fmin: Float, fmax: Float, fs: Float) -> [[Fl
     let alpha = powf(2.0, 1/12.0)
     let fLow = (fmin + fmin / alpha) / 2.0
     let fHigh = (fmax + fmax * alpha) / 2.0
-    var frequencies: [Float] = []
+    var frequencies: [Float] = Array(repeating: 0.0, count: N)
     let margin = Int(fs)/2/N
-    for index in 0...N {        // couldnt find a better way to do this....
+    for index in 0...N-1 {        // couldnt find a better way to do this....
         frequencies[index] =  Float(index*margin)
     }
     

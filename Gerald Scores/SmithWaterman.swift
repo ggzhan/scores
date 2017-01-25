@@ -72,7 +72,7 @@ func cosine_similarity(v1: [Float], v2: [Float]) -> Float {
         
     }
 }
-
+/* don´t need this
 func euclidean_similarity(v1: [Float],v2: [Float]) -> Float {
     var d: Float {
         var ret: Float = 0.0
@@ -83,7 +83,7 @@ func euclidean_similarity(v1: [Float],v2: [Float]) -> Float {
     }
     return 1.0-d/maxEuclideanDistance
 }
-
+*/
 
 // only implemented one of many scoreFunctions by Alex
 func scoreFunction(v1: [Float],v2: [Float])-> Float{
@@ -104,8 +104,8 @@ func scoreFunctionSimple(v1: [Float],v2: [Float]){
     }
 }
 */
-
-class OnlineAlignment {
+/*  OnlineAlignment from swa.swa
+public class OnlineAlignment {
     var n: Int
     var prevRow: [Float]
     var maxima: [Float] = []
@@ -124,14 +124,16 @@ class OnlineAlignment {
     }
     
     func align(v: [Float]) -> Float {
-        var nextRow: [Float] = Array(repeating: 0.0, count: n+1)
+        var nextRow: [Float] = Array(repeating: 0.0, count: self.n+1)
         var match: Float
         var delete: Float
         var insert: Float
         var maxPos: [Float] = []
-        var maxValue: Float
+        var maxValue: Float = 0.0
         var nextPos : Float
-        for i in 1...(n+1){
+
+        
+        for i in 1...self.n{  //indices here are a little bit iffy
             match = prevRow[i-1] + scoreFunction(v1: v, v2: refFeatures[i-1])
             delete = prevRow[i] + gapScore
             insert = nextRow[i-1] + gapScore
@@ -155,6 +157,45 @@ class OnlineAlignment {
     }
 }
 
+*/
+public class OnlineAlignment {
+    var n: Int
+    var prevRow: [Float]
+    var refFeatures:[[Float]]
+    var gapScore: Float
+    
+    init(refFeatures: [[Float]], gapScore: Float = -1) {
+        reset()
+        self.refFeatures = refFeatures
+        self.gapScore = gapScore
+        n = refFeatures.count
+        prevRow = Array(repeating: 0.0, count: n+1)
+        
+    }
+    
+    func align(v: [Float]) -> Float {
+        var nextRow: [Float] = Array(repeating: 0.0, count: self.n+1)
+        var match: Float
+        var delete: Float
+        var insert: Float
+        var maxValue: Float = 0.0
+        var position = 0
+        
+        for i in 1...self.n{  //indices here are a little bit iffy
+            match = prevRow[i-1] + scoreFunction(v1: v, v2: refFeatures[i-1])
+            delete = prevRow[i] + gapScore
+            insert = nextRow[i-1] + gapScore
+            
+            let val = max(0.0, match, delete, insert)
+            if maxValue<val {
+                position = i-1
+                maxValue = val
+            }
+            nextRow[i] = val
+        }
+        self.prevRow = nextRow
+        return Float(position)
 
-
+    }
+}
 

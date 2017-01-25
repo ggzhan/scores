@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Darwin
 import AVFoundation
 
 /**
@@ -43,8 +44,29 @@ class RecorderViewController: UIViewController {
         setSessionPlayback()
         askForNotifications()
         checkHeadphones()
+        listRecordings()
         
     }
+    
+    var recordings = [URL]()
+    
+    func listRecordings() {
+        
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        do {
+            let urls = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+            recordings = urls.filter( { (name: URL) -> Bool in
+                return name.lastPathComponent.hasSuffix("m4a")
+            })
+            
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        } catch {
+            print("something went wrong listing recordings")
+        }
+        
+    }
+
     
     func updateAudioMeter(_ timer:Timer) {
         
@@ -55,8 +77,8 @@ class RecorderViewController: UIViewController {
             statusLabel.text = s
             recorder.updateMeters()
             // if you want to draw some graphics...
-            var apc0 = recorder.averagePower(forChannel: 0)
-            var peak0 = recorder.peakPower(forChannel:0)
+            //var apc0 = recorder.averagePower(forChannel: 0)
+            //var peak0 = recorder.peakPower(forChannel:0)
         }
     }
     
@@ -203,7 +225,7 @@ class RecorderViewController: UIViewController {
                     }
                     self.recorder.record()
                     self.meterTimer = Timer.scheduledTimer(timeInterval: 0.1,
-                                                           target:self,
+                                                           target:self,	
                                                            selector:#selector(RecorderViewController.updateAudioMeter(_:)),
                                                            userInfo:nil,
                                                            repeats:true)
@@ -526,95 +548,51 @@ class RecorderViewController: UIViewController {
     }
     
     
-    // FFT
-    // assetReader code: https://github.com/justinlevi/AVAssetReader/blob/master/AVAssetReader.playground/Contents.swift
-
-    /*
-    func gotSomeAudio(numberOfFrames: Int, url: URL!) {
-        let asset = AVAsset(url:self.soundFileURL!)
-        var assetReader:AVAssetReader
-        let track = asset.tracks(withMediaType: AVMediaTypeAudio).first
-        let outputSettings: [String:Int] =
-            [ AVFormatIDKey: Int(kAudioFormatLinearPCM),
-              AVLinearPCMIsBigEndianKey: 0,
-              AVLinearPCMIsFloatKey: 0,
-              AVLinearPCMBitDepthKey: 16,
-              AVLinearPCMIsNonInterleaved: 0]
-        
-        let trackOutput = AVAssetReaderTrackOutput(track: track!, outputSettings: outputSettings)
-        assetReader.add(trackOutput)
-        assetReader.startReading()
-        
-        var sampleData = NSMutableData()
-        
-        while assetReader.status == AVAssetReaderStatus.reading {
-            if let sampleBufferRef = trackOutput.copyNextSampleBuffer() {
-                if let blockBufferRef = CMSampleBufferGetDataBuffer(sampleBufferRef) {
-                    let bufferLength = CMBlockBufferGetDataLength(blockBufferRef)
-                    var data = NSMutableData(length: bufferLength)
-                    CMBlockBufferCopyDataBytes(blockBufferRef, 0, bufferLength, data!.mutableBytes)
-                    var samples = UnsafeMutablePointer<Int16>(data!.mutableBytes.assumingMemoryBound(to: Int16.IntegerLiteralType.self) )
-                   
-                    /*data!.withUnsafeMutableBytes {
-                        (bytes: UnsafeMutablePointer<UInt8>) -> Void in bytes[0] = newValue.rawValue
-                    }
-                     */
-                    sampleData.append(samples, length: bufferLength)
-                    CMSampleBufferInvalidate(sampleBufferRef)
-                }
-            }
-        }
-        
-        if assetReader.status == AVAssetReaderStatus.completed {
-            print("complete")
-        }
- 
-        
-        let fft = TempiFFT(withSize: numberOfFrames, sampleRate: 44100.0)
-        fft.windowType = TempiFFTWindowType.hanning
-        fft.fftForward(sampleData)
-        
-        // Interpoloate the FFT data so there's one band per pixel.
-        
-        let screenWidth = UIScreen.main.bounds.size.width * UIScreen.main.scale
-        fft.calculateLinearBands(minFrequency: 0, maxFrequency: fft.nyquistFrequency, numberOfBands: Int(screenWidth))
-    }
- 
- 
+    
     // turning audio file into float array: http://stackoverflow.com/questions/34751294/how-can-i-generate-an-array-of-floats-from-an-audio-file-in-swift
-     */
-    func loadAudioSignal(audioURL: NSURL) -> (signal: [Float], rate: Double, frameCount: Int) {
-        let file = try! AVAudioFile(forReading: audioURL as URL)
+    func loadAudioSignal(audioURL: URL) -> (signal: [Float], rate: Double, frameCount: Int) {
+        let file = try! AVAudioFile(forReading: audioURL as URL!)
         let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)
         let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(file.length))
         try! file.read(into: buf) // You probably want better error handling
         let floatArray = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
         return (signal: floatArray, rate: file.fileFormat.sampleRate, frameCount: Int(file.length))
     }
-    /*
-    func fourier(numberofFrames: Int, audioURL: NSURL) {
-        let audioSignal = loadAudioSignal(audioURL: audioURL)
-        let fft = TempiFFT(withSize: numberofFrames, sampleRate: 44100.0)
-        fft.windowType = TempiFFTWindowType.hanning
-        let fft_array = fft.fftForward(audioSignal.signal)
-        print(fft_array)
-    }
-    */
-
-    // button to test fourier 
+    
+    
     
     @IBOutlet weak var fourierB: UIButton!
     
     @IBAction func fourierB(_ sender: Any) {
-        if soundFileURL == nil {
-            return
-        } else {
-            let floatFile = loadAudioSignal(audioURL: soundFileURL as NSURL)
+        //if recordings[0] == nil {
+          //  return }
+        // else {
+            /*
+            let floatFile = loadAudioSignal(audioURL: soundFileURL)
             let fftArray = fft(floatFile.signal)
             print(fftArray)
-        }
+             */
+            follower(soundFileURL: recordings)
+        //}
     }
     
+    //getting the sound file URL
+    /* donßt need this
+    public func getSoundFileURL() -> URL{
+        if soundFileURL == nil {
+            print("soundFile is empty!")
+            exit(0)
+        } else {
+            /*
+             let floatFile = loadAudioSignal(audioURL: soundFileURL)
+             let fftArray = fft(floatFile.signal)
+             print(fftArray)
+             */
+            return soundFileURL
+        }
+
+    }
+     */
 }
 
     

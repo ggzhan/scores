@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		32388D1A1E0C322A00A9DE9E /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320690EC1E046E15003A0F71 /* FFT.swift */; };
-		324498C41E3166CD00F549AB /* wav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324498C31E3166CD00F549AB /* wav.swift */; };
+		324498C61E316C1000F549AB /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324498C51E316C0F00F549AB /* Follower.swift */; };
 		325259DD1E30F7FA004C954E /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325259DC1E30F7FA004C954E /* Misc.swift */; };
 		325E72CD1DFEFFB300AA7E2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72CC1DFEFFB300AA7E2E /* AppDelegate.swift */; };
 		325E72CF1DFEFFB300AA7E2E /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72CE1DFEFFB300AA7E2E /* RecorderViewController.swift */; };
@@ -19,6 +19,8 @@
 		325E72ED1DFEFFB300AA7E2E /* Gerald_ScoresUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72EC1DFEFFB300AA7E2E /* Gerald_ScoresUITests.swift */; };
 		325E72FB1DFF001400AA7E2E /* RecordingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72FA1DFF001400AA7E2E /* RecordingCollectionViewCell.swift */; };
 		325E72FD1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72FC1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift */; };
+		326BF4A81E324D8A004E25D8 /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326BF4A71E324D8A004E25D8 /* Features.swift */; };
+		326BF4AA1E326027004E25D8 /* Eval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326BF4A91E326027004E25D8 /* Eval.swift */; };
 		32944F411E104E8D00DCF22B /* SmithWaterman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32388D1B1E0C338E00A9DE9E /* SmithWaterman.swift */; };
 		32A3FF4E1E2FBC54002FF2EC /* Kernels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A3FF4D1E2FBC54002FF2EC /* Kernels.swift */; };
 		32A3FF501E2FBCD0002FF2EC /* Chroma.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A3FF4F1E2FBCD0002FF2EC /* Chroma.swift */; };
@@ -44,7 +46,7 @@
 /* Begin PBXFileReference section */
 		320690EC1E046E15003A0F71 /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
 		32388D1B1E0C338E00A9DE9E /* SmithWaterman.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmithWaterman.swift; sourceTree = "<group>"; };
-		324498C31E3166CD00F549AB /* wav.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wav.swift; sourceTree = "<group>"; };
+		324498C51E316C0F00F549AB /* Follower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
 		325259DC1E30F7FA004C954E /* Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
 		325E72C91DFEFFB300AA7E2E /* Gerald Scores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gerald Scores.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		325E72CC1DFEFFB300AA7E2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,8 @@
 		325E72EE1DFEFFB300AA7E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		325E72FA1DFF001400AA7E2E /* RecordingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingCollectionViewCell.swift; sourceTree = "<group>"; };
 		325E72FC1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsCollectionViewController.swift; sourceTree = "<group>"; };
+		326BF4A71E324D8A004E25D8 /* Features.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Features.swift; sourceTree = "<group>"; };
+		326BF4A91E326027004E25D8 /* Eval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Eval.swift; sourceTree = "<group>"; };
 		32A3FF4D1E2FBC54002FF2EC /* Kernels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kernels.swift; sourceTree = "<group>"; };
 		32A3FF4F1E2FBCD0002FF2EC /* Chroma.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chroma.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,7 +126,9 @@
 				32A3FF4D1E2FBC54002FF2EC /* Kernels.swift */,
 				32A3FF4F1E2FBCD0002FF2EC /* Chroma.swift */,
 				325259DC1E30F7FA004C954E /* Misc.swift */,
-				324498C31E3166CD00F549AB /* wav.swift */,
+				324498C51E316C0F00F549AB /* Follower.swift */,
+				326BF4A91E326027004E25D8 /* Eval.swift */,
+				326BF4A71E324D8A004E25D8 /* Features.swift */,
 				325E72D01DFEFFB300AA7E2E /* Main.storyboard */,
 				325E72D31DFEFFB300AA7E2E /* Assets.xcassets */,
 				325E72D51DFEFFB300AA7E2E /* LaunchScreen.storyboard */,
@@ -289,11 +295,13 @@
 				325E72FB1DFF001400AA7E2E /* RecordingCollectionViewCell.swift in Sources */,
 				325259DD1E30F7FA004C954E /* Misc.swift in Sources */,
 				325E72CF1DFEFFB300AA7E2E /* RecorderViewController.swift in Sources */,
+				326BF4AA1E326027004E25D8 /* Eval.swift in Sources */,
 				32A3FF4E1E2FBC54002FF2EC /* Kernels.swift in Sources */,
-				324498C41E3166CD00F549AB /* wav.swift in Sources */,
 				32388D1A1E0C322A00A9DE9E /* FFT.swift in Sources */,
+				324498C61E316C1000F549AB /* Follower.swift in Sources */,
 				32944F411E104E8D00DCF22B /* SmithWaterman.swift in Sources */,
 				325E72CD1DFEFFB300AA7E2E /* AppDelegate.swift in Sources */,
+				326BF4A81E324D8A004E25D8 /* Features.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

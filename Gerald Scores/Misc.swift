@@ -25,18 +25,22 @@ public func transpose<T>(input: [[T]]) -> [[T]] {
 public func dot(a:[[Float]], b: [Float]) -> [Float] {
     
     let dimx = a.count
-    let dimy = b.count
+    let dimy = b.count  // these dimensions maybe wrong
+    if a[0].count != b.count {
+        print("Dimensoins of arrays not correct!")
+        return [0]
+    }
     var temp: [[Float]] = Array(repeating: Array(repeating: 0.0, count: dimy), count: dimx)
-    var result: [Float] = Array(repeating: 0.0, count: dimy)
+    var result: [Float] = Array(repeating: 0.0, count: dimx)
     
     for index in 0...dimx-1 {
         for indexy in 0...dimy-1 {
             temp[index][indexy] = a[index][indexy]*b[indexy]
         }
     }
-    for i in 0...dimy-1 {
+    for i in 0...dimx-1 {
         result[i] = temp[i].reduce(0,+)
     }
-    
+
     return result
 }
