@@ -9,18 +9,6 @@
 import Foundation
 
 
-
-var chromaKernelCash = Array<[Float]>(repeating: Array(repeating: 0.0, count: 0), count: 0)  //does this initialze work?
-
-
-struct chromaKernelKey {
-    var N: Int
-    var fmin: Float
-    var fmax: Float
-    var fs: Float
-}
-
-
 func frequency_to_midi(f: Float) -> Int {
     return Int(round(69+12*log2(f/440.0)))
 }
@@ -34,9 +22,9 @@ func generate_chroma_kernel(N: Int, fmin: Float, fmax: Float, fs: Float) -> [[Fl
     let alpha = powf(2.0, 1/12.0)
     let fLow = (fmin + fmin / alpha) / 2.0
     let fHigh = (fmax + fmax * alpha) / 2.0
-    var frequencies: [Float] = Array(repeating: 0.0, count: N)
-    let margin = Int(fs)/2/N
-    for index in 0...N-1 {        // couldnt find a better way to do this....
+    var frequencies: [Float] = Array(repeating: 0.0, count: N/2+1)
+    let margin = Int(fs)/N     //margin= nyquist/(N/2)
+    for index in 0...N/2 {        // couldnt find a better way to do this....
         frequencies[index] =  Float(index*margin)
     }
     

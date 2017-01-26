@@ -25,7 +25,7 @@ public func transpose<T>(input: [[T]]) -> [[T]] {
 public func dot(a:[[Float]], b: [Float]) -> [Float] {
     
     let dimx = a.count
-    let dimy = b.count  // these dimensions maybe wrong
+    let dimy = b.count
     if a[0].count != b.count {
         print("Dimensoins of arrays not correct!")
         return [0]

@@ -62,9 +62,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fy-a3-Lzu">
-                                <rect key="frame" x="42" y="353" width="49" height="30"/>
+                                <rect key="frame" x="50" y="353" width="33" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Fourier"/>
+                                <state key="normal" title="SWA"/>
                                 <connections>
                                     <action selector="fourierB:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rUa-dY-d8G"/>
                                 </connections>
@@ -120,6 +120,15 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXw-gv-I0d">
+                                            <rect key="frame" x="261" y="0.0" width="34" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Back"/>
+                                            <connections>
+                                                <action selector="backB:" destination="ZKi-z1-KdA" eventType="touchUpInside" id="Xbs-Lv-6Ht"/>
+                                                <segue destination="BYZ-38-t0r" kind="presentation" id="qLe-bv-fYk"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                                 <constraints>

@@ -15,7 +15,7 @@ var max2 = 0
 let maxEuclideanDistance: Float = sqrt(12)
 let baseScore = 1
 let penalty = 2
-let threshold: Float = 0.95
+let threshold: Float = 0.95 // default 0.95
 
 func reset() {
     max1 = 0
@@ -57,16 +57,16 @@ func cosine_similarity(v1: [Float], v2: [Float]) -> Float {
         var v1Norm: Float {
             var norm: Float = 0.0
             for i in 0...v1.count-1{
-                norm = norm+sqrt(v1[i]*v1[i])
+                norm = norm+v1[i]*v1[i]
             }
-            return Float(norm)
+            return Float(sqrt(norm))
         }
         var v2Norm: Float {
             var norm:Float = 0.0
             for i in 0...v2.count-1{
-                norm = norm+sqrt(v2[i]*v2[i])
+                norm = norm+v2[i]*v2[i]
             }
-            return Float(norm)
+            return Float(sqrt(norm))
         }
         return multiples.reduce(0, +)/v1Norm/v2Norm
         
@@ -158,6 +158,8 @@ public class OnlineAlignment {
 }
 
 */
+
+// from swacython.swa
 public class OnlineAlignment {
     var n: Int
     var prevRow: [Float]
@@ -165,11 +167,10 @@ public class OnlineAlignment {
     var gapScore: Float
     
     init(refFeatures: [[Float]], gapScore: Float = -1) {
-        reset()
         self.refFeatures = refFeatures
         self.gapScore = gapScore
-        n = refFeatures.count
-        prevRow = Array(repeating: 0.0, count: n+1)
+        self.n = refFeatures.count
+        prevRow = Array(repeating: 0.0, count: self.n+1)
         
     }
     
@@ -181,10 +182,10 @@ public class OnlineAlignment {
         var maxValue: Float = 0.0
         var position = 0
         
-        for i in 1...self.n{  //indices here are a little bit iffy
-            match = prevRow[i-1] + scoreFunction(v1: v, v2: refFeatures[i-1])
-            delete = prevRow[i] + gapScore
-            insert = nextRow[i-1] + gapScore
+        for i in 1...self.n {  //indices n is correct, in python range() doesnt count the last number
+            match = self.prevRow[i-1] + scoreFunction(v1: v, v2: self.refFeatures[i-1])
+            delete = self.prevRow[i] + self.gapScore
+            insert = nextRow[i-1] + self.gapScore
             
             let val = max(0.0, match, delete, insert)
             if maxValue<val {

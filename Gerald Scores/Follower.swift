@@ -21,9 +21,13 @@ public func follower(soundFileURL: [URL]) {
     let onlineAlignment = OnlineAlignment(refFeatures: refFeatures)
 
     let (predictedPosition, actualPosition, errors) = evaluate_OnlineAlignment(testFeatures: testFeatures, oa: onlineAlignment)
+    /*
     print(refFeatures)
+    print(testFeatures)
+     */
     print(errors)
     print(predictedPosition)
     print(actualPosition)
+    
 }
 

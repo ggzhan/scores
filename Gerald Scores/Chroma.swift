@@ -21,7 +21,7 @@ Keyword Arguments:
 - fs:      Samplingrate.
 - winFunc: Window function
 */
-public func fourier_chroma(x: [Float], fmin: Float=65.406, fmax: Float=200000,fs: Float=44100) -> [Float] {
+public func fourier_chroma(x: [Float], fmin: Float=65.406, fmax: Float=20000,fs: Float=44100) -> [Float] {
     let N = x.count
     let winFunc: [Float] = Array(repeating: 1.0, count: N)
     
@@ -42,6 +42,7 @@ public func fourier_chroma(x: [Float], fmin: Float=65.406, fmax: Float=200000,fs
     }
     let signalEnergy = fft(new_x)
     
+    //print(tempChromaKernel)
     tempChromaKernel = transpose(input: tempChromaKernel)
     var chromaKernel: [Float] = dot(a: tempChromaKernel, b: signalEnergy)
     let constant = sqrt(Float(N))
