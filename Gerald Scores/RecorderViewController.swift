@@ -558,7 +558,8 @@ class RecorderViewController: UIViewController {
         let floatArray = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
         return (signal: floatArray, rate: file.fileFormat.sampleRate, frameCount: Int(file.length))
     }
-    
+ 
+
     
     
     @IBOutlet weak var fourierB: UIButton!
@@ -572,7 +573,8 @@ class RecorderViewController: UIViewController {
             let fftArray = fft(floatFile.signal)
             print(fftArray)
              */
-            follower(soundFileURL: recordings)
+            //follower(soundFileURL: recordings)
+        follower_p(soundFileURL: recordings)
         //}
     }
     

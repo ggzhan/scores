@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Accelerate
 
 
 /*    """Number of blocks for a given length, windowSize and windowOffset.
@@ -55,15 +56,18 @@ Extracts features from a array.
 public func extract_features(x: [Float], winSize: Int, winOffset: Int) -> [[Float]] {
     
     let nrOfBlocks = nr_of_blocks(length: x.count, windowSize: winSize, windowOffset: winOffset)
-    let n = fourier_chroma(x: [Float](x[0...winSize])).count
+    let length = vDSP_Length(floor(log2(Float(x.count))))
+    let radix = FFTRadix(kFFTRadix2)
+    let weights = vDSP_create_fftsetup(length, radix)
+    let n = winSize
     var ret: [[Float]] = Array(repeating: Array(repeating: 0.0, count: n), count: nrOfBlocks)
     var left: Int
     var right: Int
     
     for i in 0...nrOfBlocks-1 {  //in cases where x.count is multiple of window size, index out of range for nrOfBlocks-1
         left = i*winOffset
-        right = left + winSize
-        ret[i] = fourier_chroma(x: [Float](x[left...right]) )
+        right = left + winSize-1
+        ret[i] = fourier_chroma(x: [Float](x[left...right]), weights: weights)
     }
     return ret
 }

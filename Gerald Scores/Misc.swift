@@ -14,8 +14,9 @@ public func transpose<T>(input: [[T]]) -> [[T]] {
     let count = input[0].count
     var out = [[T]](repeating: [T](), count: count)
     for outer in input {
-        for (index, inner) in outer.enumerated() {
+        for (index, inner) in outer.enumerated() {  // really really slow
             out[index].append(inner)
+
         }
     }
     
@@ -27,20 +28,34 @@ public func dot(a:[[Float]], b: [Float]) -> [Float] {
     let dimx = a.count
     let dimy = b.count
     if a[0].count != b.count {
-        print("Dimensoins of arrays not correct!")
+        print("Dimensions of arrays not correct!")
         return [0]
     }
-    var temp: [[Float]] = Array(repeating: Array(repeating: 0.0, count: dimy), count: dimx)
+    //var temp: [[Float]] = Array(repeating: Array(repeating: 0.0, count: dimy), count: dimx)
     var result: [Float] = Array(repeating: 0.0, count: dimx)
     
     for index in 0...dimx-1 {
+        var vec:[Float] = a[index]
         for indexy in 0...dimy-1 {
-            temp[index][indexy] = a[index][indexy]*b[indexy]
+           result[index] += vec[indexy] * b[indexy]
         }
     }
-    for i in 0...dimx-1 {
-        result[i] = temp[i].reduce(0,+)
-    }
+    
+    return result
+}
 
+public func dot_p(a:UnsafeMutablePointer<UnsafeMutablePointer<Float>>, b: UnsafeMutablePointer<Float>) -> UnsafeMutablePointer<Float> {
+    
+    let dimx = 12
+    let dimy = 4096
+    //var temp: [[Float]] = Array(repeating: Array(repeating: 0.0, count: dimy), count: dimx)
+    let result = UnsafeMutablePointer<Float>.allocate(capacity: 12)
+    let vec = UnsafeMutablePointer<Float>.allocate(capacity: 4096)
+    for index in 0...dimx-1 {
+        for indexy in 0...dimy-1 {
+            result[index] = result[index] + vec[indexy]*b[indexy]
+        }
+    }
+    
     return result
 }
