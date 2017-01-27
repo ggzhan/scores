@@ -44,6 +44,27 @@ public func dot(a:[[Float]], b: [Float]) -> [Float] {
     return result
 }
 
+public func dot_transpose(a:[[Float]], b: [Float]) -> [Float] {
+ 
+ let dimx = a[0].count
+ let dimy = b.count
+ if a.count != b.count {
+  print("Dimensions of arrays not correct!")
+  return [0]
+ }
+ //var temp: [[Float]] = Array(repeating: Array(repeating: 0.0, count: dimy), count: dimx)
+ var result: [Float] = Array(repeating: 0.0, count: dimx)
+ 
+ for index in 0...dimx-1 {
+  for indexy in 0...dimy-1 {
+   result[index] += a[indexy][index] * b[indexy]
+  }
+ }
+ 
+ return result
+}
+
+
 public func dot_p(a:UnsafeMutablePointer<UnsafeMutablePointer<Float>>, b: UnsafeMutablePointer<Float>) -> UnsafeMutablePointer<Float> {
     
     let dimx = 12

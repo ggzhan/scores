@@ -31,7 +31,7 @@ public func follower(soundFileURL: [URL]) {
     print(actualPosition)
     
 }
-
+/*
 public func follower_p(soundFileURL: [URL]) {
     let fs = 44100
     let windowSize = 8192/2
@@ -54,3 +54,4 @@ public func follower_p(soundFileURL: [URL]) {
     print(actualPosition)
     
 }
+ */

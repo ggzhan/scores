@@ -22,6 +22,7 @@
 		326BF4A81E324D8A004E25D8 /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326BF4A71E324D8A004E25D8 /* Features.swift */; };
 		326BF4AA1E326027004E25D8 /* Eval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326BF4A91E326027004E25D8 /* Eval.swift */; };
 		327B69821E3B82EE00689DDD /* SwaBackEnd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B69811E3B82EE00689DDD /* SwaBackEnd.swift */; };
+		327B69841E3BEAF700689DDD /* ChromaClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B69831E3BEAF700689DDD /* ChromaClass.swift */; };
 		32944F411E104E8D00DCF22B /* SmithWaterman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32388D1B1E0C338E00A9DE9E /* SmithWaterman.swift */; };
 		32A3FF4E1E2FBC54002FF2EC /* Kernels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A3FF4D1E2FBC54002FF2EC /* Kernels.swift */; };
 		32A3FF501E2FBCD0002FF2EC /* Chroma.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A3FF4F1E2FBCD0002FF2EC /* Chroma.swift */; };
@@ -66,7 +67,8 @@
 		325E72FC1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsCollectionViewController.swift; sourceTree = "<group>"; };
 		326BF4A71E324D8A004E25D8 /* Features.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Features.swift; sourceTree = "<group>"; };
 		326BF4A91E326027004E25D8 /* Eval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Eval.swift; sourceTree = "<group>"; };
-		327B69811E3B82EE00689DDD /* SwaBackEnd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwaBackEnd.swift; sourceTree = "<group>"; };
+		327B69811E3B82EE00689DDD /* SwaBackEnd.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SwaBackEnd.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
+		327B69831E3BEAF700689DDD /* ChromaClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromaClass.swift; sourceTree = "<group>"; };
 		32A3FF4D1E2FBC54002FF2EC /* Kernels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kernels.swift; sourceTree = "<group>"; };
 		32A3FF4F1E2FBCD0002FF2EC /* Chroma.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chroma.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,7 +106,9 @@
 				325E72EB1DFEFFB300AA7E2E /* Gerald ScoresUITests */,
 				325E72CA1DFEFFB300AA7E2E /* Products */,
 			);
+			indentWidth = 1;
 			sourceTree = "<group>";
+			tabWidth = 1;
 		};
 		325E72CA1DFEFFB300AA7E2E /* Products */ = {
 			isa = PBXGroup;
@@ -132,6 +136,7 @@
 				326BF4A91E326027004E25D8 /* Eval.swift */,
 				326BF4A71E324D8A004E25D8 /* Features.swift */,
 				327B69811E3B82EE00689DDD /* SwaBackEnd.swift */,
+				327B69831E3BEAF700689DDD /* ChromaClass.swift */,
 				325E72D01DFEFFB300AA7E2E /* Main.storyboard */,
 				325E72D31DFEFFB300AA7E2E /* Assets.xcassets */,
 				325E72D51DFEFFB300AA7E2E /* LaunchScreen.storyboard */,
@@ -293,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				327B69841E3BEAF700689DDD /* ChromaClass.swift in Sources */,
 				325E72FD1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift in Sources */,
 				32A3FF501E2FBCD0002FF2EC /* Chroma.swift in Sources */,
 				325E72FB1DFF001400AA7E2E /* RecordingCollectionViewCell.swift in Sources */,
@@ -457,6 +463,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = GWEVMB4VDF;
 				INFOPLIST_FILE = "Gerald Scores/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -470,6 +477,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = GWEVMB4VDF;
 				INFOPLIST_FILE = "Gerald Scores/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

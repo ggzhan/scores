@@ -574,8 +574,14 @@ class RecorderViewController: UIViewController {
             print(fftArray)
              */
             //follower(soundFileURL: recordings)
-        follower_p(soundFileURL: recordings)
-        //}
+     let SwaInstance = Swa(recordings: recordings)
+
+     let refFeatures = SwaInstance.extract_features(x: loadAudioSignal(audioURL: recordings[1]).signal)
+     let testFeatures = SwaInstance.extract_features(x: loadAudioSignal(audioURL: recordings[0]).signal)
+     print(refFeatures)
+     print(testFeatures)
+     
+     //}
     }
     
     //getting the sound file URL
