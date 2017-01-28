@@ -48,7 +48,7 @@ class RecorderViewController: UIViewController {
         
     }
     
-    var recordings = [URL]()
+    public var recordings = [URL]()
     
     func listRecordings() {
         
@@ -573,14 +573,17 @@ class RecorderViewController: UIViewController {
             let fftArray = fft(floatFile.signal)
             print(fftArray)
              */
-            //follower(soundFileURL: recordings)
+ //follower(soundFileURL: recordings)
+ follower_p(soundFileURL: recordings)
+     /*
      let SwaInstance = Swa(recordings: recordings)
-
-     let refFeatures = SwaInstance.extract_features(x: loadAudioSignal(audioURL: recordings[1]).signal)
-     let testFeatures = SwaInstance.extract_features(x: loadAudioSignal(audioURL: recordings[0]).signal)
+     let refSoundFile = Swa.loadAudioSignal(audioURL: recordings[1])
+     let testSoundFile = Swa.loadAudioSignal(audioURL: recordings[0])
+     let refFeatures = SwaInstance.extract_features(x: refSoundFile)
+     let testFeatures = SwaInstance.extract_features(x: testSoundFile)
      print(refFeatures)
      print(testFeatures)
-     
+     */
      //}
     }
     

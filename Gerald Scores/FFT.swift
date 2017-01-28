@@ -11,26 +11,26 @@ import Accelerate
 
 // MARK: Fast Fourier Transform
 
-func fft(_ input: Array<Float>, weights: FFTSetup?) -> [Float] {
-    //var real = input
-    let real = UnsafeMutablePointer<Float>.allocate(capacity: input.count)
-    let imaginary = UnsafeMutablePointer<Float>.allocate(capacity: input.count)
-    //var imaginary = Array<Float>(repeating: 0.0, count: input.count)
-    var splitComplex = DSPSplitComplex(realp: real, imagp: imaginary)
-    
-    let length = vDSP_Length(floor(log2(Float(input.count))))
+func fft(_ input: UnsafeMutablePointer<Float>, inputCount: Int, weights: FFTSetup?) -> [Float] {
+    var real = input
+    //let real = UnsafeMutablePointer<Float>.init(from: input)
+    //let imaginary = UnsafeMutablePointer<Float>.allocate(capacity: input.count)
+    var imaginary = Array<Float>(repeating: 0.0, count: inputCount)
+    var splitComplex = DSPSplitComplex(realp: real, imagp: &imaginary)
+ 
+    let length = vDSP_Length(floor(log2(Float(inputCount))))
      /*
     let radix = FFTRadix(kFFTRadix2)
     let weights = vDSP_create_fftsetup(length, radix)
     */
     vDSP_fft_zip(weights!, &splitComplex, 1, length, FFTDirection(FFT_FORWARD))
     
-    var magnitudes = [Float](repeating: 0.0, count: input.count)
-    vDSP_zvmags(&splitComplex, 1, &magnitudes, 1, vDSP_Length(input.count))
+    var magnitudes = [Float](repeating: 0.0, count: inputCount)
+    vDSP_zvmags(&splitComplex, 1, &magnitudes, 1, vDSP_Length(inputCount))
     
-    var normalizedMagnitudes = [Float](repeating: 0.0, count: input.count)
-    vDSP_vsmul(sqrt(magnitudes), 1, [2.0 / Float(input.count)], &normalizedMagnitudes, 1, vDSP_Length(input.count))  //Do I need to normalise this?
-    
+    var normalizedMagnitudes = [Float](repeating: 0.0, count: inputCount)
+    vDSP_vsmul(sqrt(magnitudes), 1, /*[2.0 / Float(length)]*/ [Float(1.0)], &normalizedMagnitudes, 1, vDSP_Length(inputCount))  //Do I need to normalise this?
+ 
     //vDSP_destroy_fftsetup(weights)
     
     return normalizedMagnitudes
@@ -50,11 +50,11 @@ func fft_p(_ input: UnsafeMutablePointer<Float>, length: Int, weights: FFTSetup?
     let magnitudes = UnsafeMutablePointer<Float>.allocate(capacity: length)
     vDSP_zvmags(&splitComplex, 1, magnitudes, 1, vDSP_Length(length))
     
-    vDSP_vsmul(sqrt_p(magnitudes, length: length), 1, [2.0 / Float(length)]/*normalizition*/, magnitudes, 1, vDSP_Length(length))  //Do I need to normalise this?
+    vDSP_vsmul(sqrt_p(magnitudes, length: length), 1, /*[2.0 / Float(length)]*/ [Float(1.0)], magnitudes, 1, vDSP_Length(length))  //Do I need to normalise this?
     
     //vDSP_destroy_fftsetup(weights)
     
-    return magnitudes
+ return magnitudes
 }
 
 

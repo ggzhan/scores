@@ -7,51 +7,50 @@
 //
 
 import Foundation
-
-public func follower(soundFileURL: [URL]) {
-    let fs = 44100
-    let windowSize = 8192/2
-    let windowOffset = 4096
-    let refSoundFile = RecorderViewController().loadAudioSignal(audioURL: soundFileURL[1])
-    let testSoundFile = RecorderViewController().loadAudioSignal(audioURL: soundFileURL[0])
-
-    let refFeatures = extract_features(x: refSoundFile.signal, winSize: windowSize, winOffset: windowOffset)
-    let testFeatures = extract_features(x: testSoundFile.signal, winSize: windowSize, winOffset: windowOffset)
-
-    let onlineAlignment = OnlineAlignment(refFeatures: refFeatures)
-
-    let (predictedPosition, actualPosition, errors) = evaluate_OnlineAlignment(testFeatures: testFeatures, oa: onlineAlignment)
-    /*
-    print(refFeatures)
-    print(testFeatures)
-     */
-    print(refSoundFile.frameCount)
-    print(errors)
-    print(predictedPosition)
-    print(actualPosition)
-    
-}
 /*
-public func follower_p(soundFileURL: [URL]) {
-    let fs = 44100
-    let windowSize = 8192/2
-    let windowOffset = 4096
+public func follower(soundFileURL: [URL]) {
+ let fs = 44100
+ let windowSize = 8192/2
+ let windowOffset = 4096
+ let refSoundFile = RecorderViewController().loadAudioSignal(audioURL: soundFileURL[1])
+ let testSoundFile = RecorderViewController().loadAudioSignal(audioURL: soundFileURL[0])
  
-    let swa = Swa(recordings: soundFileURL)
-    
-    let (refFeatures, testFeatures) = swa.getFeatures(recordings: soundFileURL)
-    let onlineAlignment = OnlineAlignment_p(refFeatures: refFeatures, length: swa.getSoundFile(soundFileURL: soundFileURL[1]).length)
-    
-    let (predictedPosition, actualPosition, errors) = swa.evaluate_OnlineAlignment(testFeatures: testFeatures, length: swa.getSoundFile(soundFileURL: soundFileURL[0]).length, oa: onlineAlignment)
-
-    /*
-     print(refFeatures)
-     print(testFeatures)
-     */
+ let refFeatures = extract_features(x: refSoundFile.signal, winSize: windowSize, winOffset: windowOffset)
+ let testFeatures = extract_features(x: testSoundFile.signal, winSize: windowSize, winOffset: windowOffset)
  
-    print(errors)
-    print(predictedPosition)
-    print(actualPosition)
-    
+ let onlineAlignment = OnlineAlignment(refFeatures: refFeatures)
+ 
+ let (predictedPosition, actualPosition, errors) = evaluate_OnlineAlignment(testFeatures: testFeatures, oa: onlineAlignment)
+ /*
+  print(refFeatures)
+  print(testFeatures)
+  */
+ print(refSoundFile.frameCount)
+ print(errors)
+ print(predictedPosition)
+ print(actualPosition)
+ 
 }
- */
+*/
+public func follower_p(soundFileURL: [URL]) {
+ 
+ let SwaInstance = Swa(recordings: soundFileURL)
+ let refSoundFile = Swa.loadAudioSignal(audioURL: soundFileURL[1])
+ let testSoundFile = Swa.loadAudioSignal(audioURL: soundFileURL[0])
+ let refFeatures = SwaInstance.extract_features(x: refSoundFile)
+ let testFeatures = SwaInstance.extract_features(x: testSoundFile)
+ let onlineAlignment = OnlineAlignment(refFeatures: refFeatures)
+
+ let (predictedPosition, actualPosition, errors) = evaluate_OnlineAlignment(testFeatures: testFeatures, oa: onlineAlignment)
+ 
+ /*
+  print(refFeatures)
+  print(testFeatures)
+  */
+ 
+ print(errors)
+ print(predictedPosition)
+ print(actualPosition)
+ 
+}
+

@@ -38,9 +38,9 @@ class Swa {
     weights = vDSP_create_fftsetup(fft_length, radix)
     self.recordings = recordings
     //chromaKernel.deallocate(capacity: 0)
-    chromaKernel = UnsafeMutablePointer<UnsafeMutablePointer<Float>>.allocate(capacity: windowSize)
+    chromaKernel = UnsafeMutablePointer<UnsafeMutablePointer<Float>>.allocate(capacity: chromaLength)
     for i in 0...chromaLength-1 {
-      chromaKernel[i] = UnsafeMutablePointer<Float>.allocate(capacity: chromaLength)
+      chromaKernel[i] = UnsafeMutablePointer<Float>.allocate(capacity: windowSize)
     }
     generate_chroma_kernel()
   }
@@ -49,6 +49,7 @@ class Swa {
       chromaKernel[i].deallocate(capacity: chromaLength)
     }
     chromaKernel.deallocate(capacity: windowSize)
+    vDSP_destroy_fftsetup(weights)
   }
 
 
@@ -88,33 +89,50 @@ class Swa {
     }
 
   }  
-  private func fourier_chroma(x: [Float]) -> [Float] {   //Computes a chroma vector from x via FFT
-    var signalEnergy = fft(x, weights: self.weights)
-    let chromaVector = dot_p(a: chromaKernel, b: &signalEnergy) //transpose and dot in one
+  private func fourier_chroma(x: UnsafeMutablePointer<Float>) -> [Float] {   //Computes a chroma vector from x via FFT
+    let signalEnergyArray = fft(x, inputCount: windowSize, weights: self.weights)
+    //let chromaVector = dot_p(a: chromaKernel, b: &signalEnergy) //transpose and dot in one
+    if (windowSize != signalEnergyArray.count) {
+      print("Dimensions of arrays not correct!")
+      return [0]
+    }
+    //var temp: [[Float]] = Array(repeating: Array(repeating: 0.0, count: dimy), count: dimx)
+    let result = UnsafeMutablePointer<Float>.allocate(capacity: chromaLength)
+    var vec: UnsafeMutablePointer<Float>
+    for index in 0...chromaLength-1 {
+      vec = chromaKernel[index]
+      result[index] = 0.0
+      for indexy in 0...windowSize-1 {
+        result[index] += vec[indexy] * signalEnergyArray[indexy]
+      }
+    }
     let constant = sqrt(Float(windowSize))
     for i in 0...chromaLength-1 {
-      chromaVector[i] = chromaVector[i]/constant
+      result[i] = result[i]/constant
     }
-    return Array(UnsafeBufferPointer(start: chromaVector, count: self.chromaLength))
+    let chromaVector = Array(UnsafeBufferPointer(start: result, count: chromaLength))
+    result.deallocate(capacity: chromaLength)
+    return chromaVector
   }
   
-  public func extract_features(x: [Float]) -> [[Float]] {
+  func extract_features(x: [Float]) -> [[Float]] {
     let n = x.count
-    let nrOfBlocks = Int(n/windowSize)
+    let signalPointer = UnsafeMutablePointer<Float>(mutating: x)
+      let nrOfBlocks = Int(n/windowSize)
     //var ret: [[Float]] = Array(repeating: Array(repeating: 0.0, count: n), count: nrOfBlocks)
     var ret: [[Float]] = Array(repeating: Array(repeating: 0.0, count: chromaLength), count: nrOfBlocks)
-    var left: Int
-    var right: Int
+    //var left: Int
+    //var right: Int
     
     for i in 0...nrOfBlocks-1 {  //in cases where x.count is multiple of window size, index out of range for nrOfBlocks-1
-      left = i*windowSize
-      right = left + windowSize-1
-      let signalSplice = [Float](x[left...right]) //needs to convert ArraySplice to Array
-      ret[i] = fourier_chroma(x: signalSplice)
+      //left = i*windowSize
+      //right = left + windowSize-1
+      //let signalSplice = [Float](x[left...right]) //needs to convert ArraySplice to Array
+      ret[i] = fourier_chroma(x: &signalPointer[i*windowSize])
     }
     return ret
-    }
   }
+}
   
 /*
   func evaluate_OnlineAlignment(testFeatures: UnsafeMutablePointer<UnsafeMutablePointer<Float>>, length: Int, oa: OnlineAlignment_p) -> ( [Float], [Float], [Float]) {
@@ -151,132 +169,8 @@ class Swa {
     print(actualPosition)
     
   }
-  
-}
-*/
+ }
+  */
+
 //   let refFeatures: [[Float]] =  extract_features(x: loadAudioSignal[recordings[1]], winSize: windowSize, winOffset: windowSize)
 //let testFeatures: [[Float]] =  extract_features(x: loadAudioSignal[recordings[0]], winSize: windowSize, winOffset: windowSize)
-
-// from swacython.swa
-class OnlineAlignment_p {
-  
-  
-  var max1 = 0
-  var max2 = 0
-  let maxEuclideanDistance: Float = sqrt(12)
-  let baseScore = 1
-  let penalty = 2
-  let threshold: Float = 0.95 // default 0.95
-  
-  var n: Int
-  var prevRow: UnsafeMutablePointer<Float>
-  var refFeatures: UnsafeMutablePointer<UnsafeMutablePointer<Float>>
-  var gapScore: Float
-  
-  init(refFeatures: UnsafeMutablePointer<UnsafeMutablePointer<Float>>, length: Int, gapScore: Float = -1) {
-    self.refFeatures = refFeatures
-    self.gapScore = gapScore
-    self.n = length
-    prevRow = UnsafeMutablePointer<Float>.allocate(capacity: n+1)
-    
-  }
-  
-  func reset() {
-    max1 = 0
-    max2 = 0
-  }
-  
-  func all(v1: [Float], v2: [Float]) -> Bool {
-    for i in 0...v1.count-1 {
-      if (v1[i] != v2[i]) {return false}
-    }
-    return true
-  }
-  
-  // notes by Alex: "Seems to be faster for vectors of length 12 (Chromas). return 1.0 - cosine(v1, v2)"
-  func cosine_similarity(v1: UnsafeMutablePointer<Float>, v2: UnsafeMutablePointer<Float>) -> Float {
-    let n = 12 // chromavectors always have size 12
-    var v1IsZero: Bool{
-      for i in 0...n-1 {
-        if (v1[i] != 0) {return false}
-      }
-      return true
-    }
-    
-    var v2IsZero: Bool{
-      for i in 0...n-1 {
-        if (v2[i] != 0) {return false}
-      }
-      return true
-    }
-    
-    if (v1IsZero && v2IsZero) {return 1.0}
-    else if (v1IsZero) {return 0.0}
-    else if (v2IsZero) {return 0.0}
-      
-      
-    else {
-      var multiples: [Float] = Array(repeating: 0.0, count: n)
-      for i in 0...n-1{
-        multiples[i] = v1[i] * v2[i]
-      }
-      var v1Norm: Float {
-        var norm: Float = 0.0
-        for i in 0...n-1{
-          norm = norm+v1[i]*v1[i]
-        }
-        return Float(sqrt(norm))
-      }
-      var v2Norm: Float {
-        var norm:Float = 0.0
-        for i in 0...n-1{
-          norm = norm+v2[i]*v2[i]
-        }
-        return Float(sqrt(norm))
-      }
-      return multiples.reduce(0, +)/v1Norm/v2Norm
-      
-    }
-  }
-  
-  // only implemented one of many scoreFunctions by Alex
-  func scoreFunction(v1: UnsafeMutablePointer<Float>, v2: UnsafeMutablePointer<Float>)-> Float{
-    let cosineSimilarity = cosine_similarity(v1: v1, v2: v2)
-    if (threshold <= cosineSimilarity){
-      return Float(baseScore) + cosineSimilarity
-    }
-    else {return Float(penalty)}
-  }
-  
-  
-  
-  
-  func align(v: UnsafeMutablePointer<Float>) -> Float {
-    let nextRow = UnsafeMutablePointer<Float>.allocate(capacity: n+1)
-    for i in 0...n {
-      nextRow[i] = 0.0
-    }
-    var match: Float
-    var delete: Float
-    var insert: Float
-    var maxValue: Float = 0.0
-    var position = 0
-    
-    for i in 1...self.n {  //indices n is correct, in python range() doesnt count the last number
-      match = self.prevRow[i-1] + scoreFunction(v1: v, v2: refFeatures[i-1])
-      delete = self.prevRow[i] + self.gapScore
-      insert = nextRow[i-1] + self.gapScore
-      
-      let val = max(0.0, match, delete, insert)
-      if maxValue<val {
-        position = i-1
-        maxValue = val
-      }
-      nextRow[i] = val
-    }
-    self.prevRow = nextRow
-    return Float(position)
-    
-  }
-}
-
