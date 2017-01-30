@@ -27,7 +27,6 @@ class Swa {
   let weights: FFTSetup?
   var recordings: [URL]
   let chromaKernel: UnsafeMutablePointer<UnsafeMutablePointer<Float>>
-  //var chromaKernel = UnsafeMutablePointer<UnsafeMutablePointer<Float>>.allocate(capacity: 0)
   let radix = FFTRadix(kFFTRadix2)
   
 
@@ -37,8 +36,7 @@ class Swa {
     fft_length = vDSP_Length(floor(log2(Float(windowSize))))
     weights = vDSP_create_fftsetup(fft_length, radix)
     self.recordings = recordings
-    //chromaKernel.deallocate(capacity: 0)
-    chromaKernel = UnsafeMutablePointer<UnsafeMutablePointer<Float>>.allocate(capacity: chromaLength)
+    chromaKernel = UnsafeMutablePointer<UnsafeMutablePointer<Float>>.allocate(capacity: chromaLength)     //chromaKernel already transposed at initialization
     for i in 0...chromaLength-1 {
       chromaKernel[i] = UnsafeMutablePointer<Float>.allocate(capacity: windowSize)
     }
@@ -91,15 +89,13 @@ class Swa {
   }  
   private func fourier_chroma(x: UnsafeMutablePointer<Float>) -> [Float] {   //Computes a chroma vector from x via FFT
     let signalEnergyArray = fft(x, inputCount: windowSize, weights: self.weights)
-    //let chromaVector = dot_p(a: chromaKernel, b: &signalEnergy) //transpose and dot in one
     if (windowSize != signalEnergyArray.count) {
       print("Dimensions of arrays not correct!")
       return [0]
     }
-    //var temp: [[Float]] = Array(repeating: Array(repeating: 0.0, count: dimy), count: dimx)
     let result = UnsafeMutablePointer<Float>.allocate(capacity: chromaLength)
     for index in 0...chromaLength-1 {
-      vDSP_mmul(chromaKernel[index], 1, signalEnergyArray, 1, &(result[index]), 1, 1, 1, vDSP_Length(windowSize));
+      vDSP_mmul(chromaKernel[index], 1, signalEnergyArray, 1, &(result[index]), 1, 1, 1, vDSP_Length(windowSize));  //vector multiplication into result
     }
     let constant = sqrt(Float(windowSize))
     for i in 0...chromaLength-1 {
@@ -114,58 +110,11 @@ class Swa {
     let n = x.count
     let signalPointer = UnsafeMutablePointer<Float>(mutating: x)
       let nrOfBlocks = Int(n/windowSize)
-    //var ret: [[Float]] = Array(repeating: Array(repeating: 0.0, count: n), count: nrOfBlocks)
     var ret: [[Float]] = Array(repeating: Array(repeating: 0.0, count: chromaLength), count: nrOfBlocks)
-    //var left: Int
-    //var right: Int
     
     for i in 0...nrOfBlocks-1 {  //in cases where x.count is multiple of window size, index out of range for nrOfBlocks-1
-      //left = i*windowSize
-      //right = left + windowSize-1
-      //let signalSplice = [Float](x[left...right]) //needs to convert ArraySplice to Array
       ret[i] = fourier_chroma(x: &signalPointer[i*windowSize])
     }
     return ret
   }
 }
-  
-/*
-  func evaluate_OnlineAlignment(testFeatures: UnsafeMutablePointer<UnsafeMutablePointer<Float>>, length: Int, oa: OnlineAlignment_p) -> ( [Float], [Float], [Float]) {
-    var predictedPosition: [Float] = Array(repeating: 0.0, count: length)
-    var actualPosition: [Float] = Array(repeating: 0.0, count: length)
-    
-    let startTime = DispatchTime.now()
-    
-    for i in 0...length-1 {
-      predictedPosition[i] = oa.align(v: testFeatures[i])
-      actualPosition[i] = Float(i%length)
-    }
-    
-    let endTime = DispatchTime.now()
-    print(endTime.uptimeNanoseconds-startTime.uptimeNanoseconds)
-    
-    let errors = zip(actualPosition, predictedPosition).map(-)
-    
-    return (predictedPosition, actualPosition, errors)
-  }
-  
-  func follower() {
-    
-    let (refFeatures, testFeatures) = getFeatures(recordings: self.recordings)
-    let onlineAlignment = OnlineAlignment_p(refFeatures: refFeatures, length: getSoundFile(soundFileURL: recordings[1]).length)
-    
-    let (predictedPosition, actualPosition, errors) = evaluate_OnlineAlignment(testFeatures: testFeatures, length: getSoundFile(soundFileURL: recordings[0]).length, oa: onlineAlignment)
-    /*
-     print(refFeatures)
-     print(testFeatures)
-     */
-    print(errors)
-    print(predictedPosition)
-    print(actualPosition)
-    
-  }
- }
-  */
-
-//   let refFeatures: [[Float]] =  extract_features(x: loadAudioSignal[recordings[1]], winSize: windowSize, winOffset: windowSize)
-//let testFeatures: [[Float]] =  extract_features(x: loadAudioSignal[recordings[0]], winSize: windowSize, winOffset: windowSize)
