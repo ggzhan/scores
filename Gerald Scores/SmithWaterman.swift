@@ -12,7 +12,6 @@ import Foundation
 
 var max1 = 0
 var max2 = 0
-let maxEuclideanDistance: Float = sqrt(12)
 let baseScore = 1
 let penalty = 2
 let threshold: Float = 0.95 // default 0.95
@@ -72,18 +71,6 @@ func cosine_similarity(v1: [Float], v2: [Float]) -> Float {
         
     }
 }
-/* don´t need this
-func euclidean_similarity(v1: [Float],v2: [Float]) -> Float {
-    var d: Float {
-        var ret: Float = 0.0
-        for i in 0...v1.count-1{
-            ret = ret+sqrt((v2[i]-v1[i])*(v2[i]-v1[i]))
-        }
-        return ret
-    }
-    return 1.0-d/maxEuclideanDistance
-}
-*/
 
 // only implemented one of many scoreFunctions by Alex
 func scoreFunction(v1: [Float],v2: [Float])-> Float{
@@ -94,16 +81,6 @@ func scoreFunction(v1: [Float],v2: [Float])-> Float{
     else {return Float(penalty)}
 }
 
-/* Weird function
-func scoreFunctionSimple(v1: [Float],v2: [Float]){
-    try {
-        if (all(v1: v1 ,v2: v2)) {return 2}
-        return -1
-    }
-    exception {
-    }
-}
-*/
 /*  OnlineAlignment from swa.swa
 public class OnlineAlignment {
     var n: Int

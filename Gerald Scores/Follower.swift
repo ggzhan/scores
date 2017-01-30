@@ -32,7 +32,7 @@ public func follower(soundFileURL: [URL]) {
  
 }
 */
-public func follower_p(soundFileURL: [URL]) {
+public func follower(soundFileURL: [URL]) {
  
  let SwaInstance = Swa(recordings: soundFileURL)
  let refSoundFile = Swa.loadAudioSignal(audioURL: soundFileURL[1])

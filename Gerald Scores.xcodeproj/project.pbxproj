@@ -20,9 +20,7 @@
 		325E72FD1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E72FC1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift */; };
 		326BF4AA1E326027004E25D8 /* Eval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326BF4A91E326027004E25D8 /* Eval.swift */; };
 		327B69821E3B82EE00689DDD /* SwaBackEnd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B69811E3B82EE00689DDD /* SwaBackEnd.swift */; };
-		327B69841E3BEAF700689DDD /* ChromaClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B69831E3BEAF700689DDD /* ChromaClass.swift */; };
 		32944F411E104E8D00DCF22B /* SmithWaterman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32388D1B1E0C338E00A9DE9E /* SmithWaterman.swift */; };
-		32A3FF4E1E2FBC54002FF2EC /* Kernels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A3FF4D1E2FBC54002FF2EC /* Kernels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +44,6 @@
 		320690EC1E046E15003A0F71 /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
 		32388D1B1E0C338E00A9DE9E /* SmithWaterman.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmithWaterman.swift; sourceTree = "<group>"; };
 		324498C51E316C0F00F549AB /* Follower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
-		325259DC1E30F7FA004C954E /* Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
 		325E72C91DFEFFB300AA7E2E /* Gerald Scores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gerald Scores.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		325E72CC1DFEFFB300AA7E2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		325E72CE1DFEFFB300AA7E2E /* RecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
@@ -62,12 +59,8 @@
 		325E72EE1DFEFFB300AA7E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		325E72FA1DFF001400AA7E2E /* RecordingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingCollectionViewCell.swift; sourceTree = "<group>"; };
 		325E72FC1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsCollectionViewController.swift; sourceTree = "<group>"; };
-		326BF4A71E324D8A004E25D8 /* Features.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Features.swift; sourceTree = "<group>"; };
 		326BF4A91E326027004E25D8 /* Eval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Eval.swift; sourceTree = "<group>"; };
 		327B69811E3B82EE00689DDD /* SwaBackEnd.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SwaBackEnd.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
-		327B69831E3BEAF700689DDD /* ChromaClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromaClass.swift; sourceTree = "<group>"; };
-		32A3FF4D1E2FBC54002FF2EC /* Kernels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kernels.swift; sourceTree = "<group>"; };
-		32A3FF4F1E2FBCD0002FF2EC /* Chroma.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chroma.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,14 +119,9 @@
 				325E72FA1DFF001400AA7E2E /* RecordingCollectionViewCell.swift */,
 				325E72FC1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift */,
 				320690EC1E046E15003A0F71 /* FFT.swift */,
-				32A3FF4D1E2FBC54002FF2EC /* Kernels.swift */,
-				32A3FF4F1E2FBCD0002FF2EC /* Chroma.swift */,
-				325259DC1E30F7FA004C954E /* Misc.swift */,
 				324498C51E316C0F00F549AB /* Follower.swift */,
 				326BF4A91E326027004E25D8 /* Eval.swift */,
-				326BF4A71E324D8A004E25D8 /* Features.swift */,
 				327B69811E3B82EE00689DDD /* SwaBackEnd.swift */,
-				327B69831E3BEAF700689DDD /* ChromaClass.swift */,
 				325E72D01DFEFFB300AA7E2E /* Main.storyboard */,
 				325E72D31DFEFFB300AA7E2E /* Assets.xcassets */,
 				325E72D51DFEFFB300AA7E2E /* LaunchScreen.storyboard */,
@@ -295,12 +283,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				327B69841E3BEAF700689DDD /* ChromaClass.swift in Sources */,
 				325E72FD1DFF004C00AA7E2E /* RecordingsCollectionViewController.swift in Sources */,
 				325E72FB1DFF001400AA7E2E /* RecordingCollectionViewCell.swift in Sources */,
 				325E72CF1DFEFFB300AA7E2E /* RecorderViewController.swift in Sources */,
 				326BF4AA1E326027004E25D8 /* Eval.swift in Sources */,
-				32A3FF4E1E2FBC54002FF2EC /* Kernels.swift in Sources */,
 				32388D1A1E0C322A00A9DE9E /* FFT.swift in Sources */,
 				324498C61E316C1000F549AB /* Follower.swift in Sources */,
 				327B69821E3B82EE00689DDD /* SwaBackEnd.swift in Sources */,
