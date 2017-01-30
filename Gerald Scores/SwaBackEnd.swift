@@ -98,13 +98,8 @@ class Swa {
     }
     //var temp: [[Float]] = Array(repeating: Array(repeating: 0.0, count: dimy), count: dimx)
     let result = UnsafeMutablePointer<Float>.allocate(capacity: chromaLength)
-    var vec: UnsafeMutablePointer<Float>
     for index in 0...chromaLength-1 {
-      vec = chromaKernel[index]
-      result[index] = 0.0
-      for indexy in 0...windowSize-1 {
-        result[index] += vec[indexy] * signalEnergyArray[indexy]
-      }
+      vDSP_mmul(chromaKernel[index], 1, signalEnergyArray, 1, &(result[index]), 1, 1, 1, vDSP_Length(windowSize));
     }
     let constant = sqrt(Float(windowSize))
     for i in 0...chromaLength-1 {
