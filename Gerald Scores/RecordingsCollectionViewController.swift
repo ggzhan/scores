@@ -37,6 +37,8 @@ class RecordingsCollectionViewController: UICollectionViewController {
         doubleTap.numberOfTouchesRequired = 1
         doubleTap.delaysTouchesBegan = true
         self.collectionView?.addGestureRecognizer(doubleTap)
+        self.collectionView!.autoresizingMask = UIViewAutoresizing.flexibleWidth
+        self.collectionView!.autoresizingMask = UIViewAutoresizing.flexibleHeight
     }
     
     /**
@@ -265,10 +267,10 @@ class RecordingsCollectionViewController: UICollectionViewController {
             self.collectionView?.reloadData()
         })
     }
-    
+    /*
     @IBAction func backB(_ sender: UIButton) {
     }
-    
+ */
     
 }
 

@@ -29,3 +29,27 @@ func evaluate_OnlineAlignment(testFeatures: [[Float]], oa: OnlineAlignment) -> (
     
     return (predictedPosition, actualPosition, errors)
 }
+
+public func follower(soundFileURL: [URL]) {
+ 
+ let SwaInstance = Swa(recordings: soundFileURL)
+ let refSoundFile = Swa.loadAudioSignal(audioURL: soundFileURL[1])
+ let testSoundFile = Swa.loadAudioSignal(audioURL: soundFileURL[0])
+ let refFeatures = SwaInstance.extract_features(x: refSoundFile)
+ let testFeatures = SwaInstance.extract_features(x: testSoundFile)
+ let onlineAlignment = OnlineAlignment(refFeatures: refFeatures)
+ 
+ let (predictedPosition, actualPosition, errors) = evaluate_OnlineAlignment(testFeatures: testFeatures, oa: onlineAlignment)
+ 
+ /*
+  print(refFeatures)
+  print(testFeatures)
+  */
+ 
+ print(errors)
+ print(predictedPosition)
+ print(actualPosition)
+ 
+}
+
+

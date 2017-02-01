@@ -8,9 +8,8 @@
 import UIKit
 
 class RecordingCollectionViewCell: UICollectionViewCell {
-    
+
     @IBOutlet var label: UILabel!
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         let view = UIView(frame:self.frame)
