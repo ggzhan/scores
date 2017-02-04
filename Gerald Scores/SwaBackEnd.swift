@@ -12,7 +12,7 @@ import AVFoundation
 
 // http://technology.meronapps.com/2016/09/27/swift-3-0-unsafe-world-2/
 
-class Swa {
+class SwaBackEnd {
 
   
   let fs = 44100
