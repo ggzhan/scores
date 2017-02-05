@@ -14,12 +14,11 @@ class SwaEval {
     let fs: Float = 44100
     let windowSize: Float = 4096
     let soundFileURL: [URL]
-    let predictedBarPositions: [Int]
+    //let predictedBarPositions = findBars(soundFileURL: soundFileURL)
     
     //URL of recording, could be URL instead of [URL]. Would need to change the recording selection function
     init(soundFileURL: [URL]) {
         self.soundFileURL = soundFileURL
-        predictedBarPositions = findBars(soundFileURL: soundFileURL)
     }
     
     /*  //Don´t need for now
@@ -65,7 +64,7 @@ class SwaEval {
         
     }
     */
-    func findBars(soundFileURL: [URL]) -> [Int] {
+    func findBars(soundFileURL: [URL]) -> [Float] {
         let refURL = Bundle.main.url(forResource: "Ravel - Tzigane", withExtension: "wav")
         let SwaInstance = SwaBackEnd(recordings: soundFileURL)
         let refSoundFile = SwaBackEnd.loadAudioSignal(audioURL: refURL!)
@@ -93,15 +92,15 @@ class SwaEval {
     
     //convert time to bar
     //maps aligned testSample time to bars from refSample
-    func timeToBar(predictedPositionInSeconds: [Float]) -> [Int] {
+    func timeToBar(predictedPositionInSeconds: [Float]) -> [Float] {
         let refTime = extractRefTime()
-        var predictedBarPositions = Array(repeating: 0, count: refTime.count)
+        var predictedBarPositions: [Float] = Array(repeating: -1, count: refTime.count)  //-1 means there is no sound for the given bar
         for i in 0..<predictedBarPositions.count {
             for j in 0..<refTime.count-1 {
-                if (predictedPositionInSeconds[i] > refTime[j]) && (predictedPositionInSeconds[i] < refTime[j+1]) {
+                if (predictedPositionInSeconds[i] > Float(refTime[j])) && (predictedPositionInSeconds[i] < Float(refTime[j+1])) {
                     continue
                 } else {
-                    predictedBarPositions[i] = j
+                    predictedBarPositions[i] = predictedPositionInSeconds[i]
                 }
             }
         }
@@ -110,13 +109,13 @@ class SwaEval {
     
     //convert bar to referenceFile time from JSON
     //outputs the refTime that is stored in the JSON file
-    func extractRefTime() -> [Float] {
-        var refTime: [Float] = []
-        var jsonObj: [String: Float]!
+    func extractRefTime() -> [Double] {
+        var refTime: [Double] = []
+        var jsonObj: [String: Double]!
         if let path = Bundle.main.path(forResource: "Tzigane_mapping", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
-                jsonObj = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Float]
+                jsonObj = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Double]
                 for i in 1...jsonObj.count {
                     refTime.append(jsonObj[String(i)]!) // refTime[1]: 3.234
                 }
@@ -129,11 +128,5 @@ class SwaEval {
         return refTime
     }
     
-    //play soundfile from bar
-    func playFromBar(bar: Int) {
-        let predictedBarPositions = findBars(soundFileURL: <#T##[URL]#>)//get the array
-        let startTime = predictedBarPositions[bar]
-        soundFileURL[0].seek  //TODO let audio play from startTime
-    }
     
 }
