@@ -25,17 +25,17 @@ class SwaBackEnd {
   let fHigh: Float
   let fft_length: UInt
   let weights: FFTSetup?
-  var recordings: [URL]
+  //var recordings: [URL]
   let chromaKernel: UnsafeMutablePointer<UnsafeMutablePointer<Float>>
   let radix = FFTRadix(kFFTRadix2)
   
 
-  init(recordings: [URL]) {
+  init() {
     fLow = (fmin + fmin / alpha) / 2.0
     fHigh = (fmax + fmax * alpha) / 2.0
     fft_length = vDSP_Length(floor(log2(Float(windowSize))))
     weights = vDSP_create_fftsetup(fft_length, radix)
-    self.recordings = recordings
+    //self.recordings = recordings
     chromaKernel = UnsafeMutablePointer<UnsafeMutablePointer<Float>>.allocate(capacity: chromaLength)     //chromaKernel already transposed at initialization
     for i in 0...chromaLength-1 {
       chromaKernel[i] = UnsafeMutablePointer<Float>.allocate(capacity: windowSize)

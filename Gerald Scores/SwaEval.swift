@@ -10,17 +10,32 @@ import Foundation
 import AVFoundation
 
 class SwaEval {
-    let refURL = Bundle.main.url(forResource: "Ravel-Tzigane", withExtension: "wav")
+    //let refURL = Bundle.main.url(forResource: "Ravel-Tzigane", withExtension: "wav")
     let fs: Float = 44100
     let windowSize: Float = 4096
-    let soundFileURL: [URL]
     //let predictedBarPositions = findBars(soundFileURL: soundFileURL)
+    let SwaInstance: SwaBackEnd
+    let refSoundFile: [Float]
+    let testSoundFile: [Float]
+    let refFeatures: [[Float]]
+    let testFeatures: [[Float]]
+    let onlineAlignment: OnlineAlignment
+    var predictedPosition: UnsafeMutablePointer<Float>
     
     //URL of recording, could be URL instead of [URL]. Would need to change the recording selection function
-    init(soundFileURL: [URL]) {
-        self.soundFileURL = soundFileURL
+    init(soundFileURL: URL) {
+        SwaInstance = SwaBackEnd()
+        refSoundFile = SwaBackEnd.loadAudioSignal(audioURL: refURL!)
+        testSoundFile = SwaBackEnd.loadAudioSignal(audioURL: soundFileURL)
+        refFeatures = SwaInstance.extract_features(x: refSoundFile)
+        testFeatures = SwaInstance.extract_features(x: testSoundFile)
+        onlineAlignment = OnlineAlignment(refFeatures: refFeatures)
+        predictedPosition = UnsafeMutablePointer.allocate(capacity: testFeatures.count)
     }
     
+    deinit {
+        predictedPosition.deallocate(capacity: testFeatures.count)
+    }
     /*  //Don´t need for now
     func evaluate_OnlineAlignment(testFeatures: [[Float]], oa: OnlineAlignment) -> ( [Float], [Float], [Float]) {
         let n = testFeatures.count
@@ -64,18 +79,14 @@ class SwaEval {
         
     }
     */
-    func findBars(soundFileURL: [URL]) -> [Float] {
-        let SwaInstance = SwaBackEnd(recordings: soundFileURL)
-        let refSoundFile = SwaBackEnd.loadAudioSignal(audioURL: refURL!)
-        let testSoundFile = SwaBackEnd.loadAudioSignal(audioURL: soundFileURL[0])
-        let refFeatures = SwaInstance.extract_features(x: refSoundFile)
-        let testFeatures = SwaInstance.extract_features(x: testSoundFile)
-        let onlineAlignment = OnlineAlignment(refFeatures: refFeatures)
-        var predictedPosition: [Float] = Array(repeating: 0.0, count: testFeatures.count)
-        for (i,chroma) in testFeatures.enumerated(){            // this part is really slow
+    func findBars(soundFileURL: URL) -> [Float] {
+        /*for (i,chroma) in testFeatures.enumerated(){            // this part is really slow
             predictedPosition[i] = onlineAlignment.align(v: chroma)
         }
-        //let predictedPositionInSeconds = predictedPosition.map{$0 / 10.8}
+        */
+        for i in 0..<testFeatures.count {
+            predictedPosition[i] = onlineAlignment.align(v: testFeatures[i])
+        }
         
         let predictedBarPositions = timeToBar(predictedPositionInSeconds: positionToTime(position: predictedPosition))
         return predictedBarPositions
@@ -84,8 +95,11 @@ class SwaEval {
     //convert aligned position to time
     //input: aligned position
     //output: time in audio file
-    func positionToTime(position: [Float]) -> [Float] {
-        let seconds: [Float] = position.map{$0 / (fs/windowSize)} //fs/winSize = number of blocks/chromavectors
+    func positionToTime(position:  UnsafeMutablePointer<Float>) -> [Float] {
+        var seconds: [Float] = Array(repeating: 0.0, count: testFeatures.count)
+        for i in 0..<testFeatures.count {
+            seconds[i] = position[i]/(fs/windowSize) //fs/winSize = number of blocks/chromavectors
+        }
         return seconds
     }
     
