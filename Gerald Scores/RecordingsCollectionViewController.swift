@@ -1,10 +1,5 @@
 //
 //  RecordingsCollectionViewController.swift
-//  AVFoundation Recorder
-//
-//  Created by Gene De Lisa on 8/13/14.
-//  Copyright (c) 2014 Gene De Lisa. All rights reserved.
-//
 
 import UIKit
 import AVFoundation
@@ -15,8 +10,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
     
     var recordings = [URL]()
     var player:AVAudioPlayer!
-    
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,6 +19,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
         
         // set the recordings array
         listRecordings()
+        urlToPlay = urlToPlayUpdate()
         
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(RecordingsCollectionViewController.longPress(_:)))
         recognizer.minimumPressDuration = 0.5 //seconds
@@ -37,6 +32,10 @@ class RecordingsCollectionViewController: UICollectionViewController {
         doubleTap.numberOfTouchesRequired = 1
         doubleTap.delaysTouchesBegan = true
         self.collectionView?.addGestureRecognizer(doubleTap)
+        
+        let swipeRight = UISwipeGestureRecognizer(target:self, action:#selector(RecordingsCollectionViewController.swipeRight(_:)))
+        swipeRight.direction = .right
+        self.collectionView?.addGestureRecognizer(swipeRight)
     }
     
     /**
@@ -76,6 +75,17 @@ class RecordingsCollectionViewController: UICollectionViewController {
             askToDelete((indexPath as NSIndexPath).row)
         }
         
+    }
+    
+    func swipeRight(_ rec:UISwipeGestureRecognizer) {
+        if rec.state != .ended {
+            return
+        }
+        
+        let p = rec.location(in: self.collectionView)
+        if let indexPath = self.collectionView?.indexPathForItem(at: p) {
+            askToGetUrlToPlay((indexPath as NSIndexPath).row)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -167,9 +177,11 @@ class RecordingsCollectionViewController: UICollectionViewController {
      }
      */
     
+    func urlToPlayUpdate() -> URL? {
+        return urlToPlay!
+    }
     
-    
-     func listRecordings() {
+    func listRecordings() {
         
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         do {
@@ -264,6 +276,46 @@ class RecordingsCollectionViewController: UICollectionViewController {
             self.listRecordings()
             self.collectionView?.reloadData()
         })
+    }
+    
+    func askToGetUrlToPlay(_ row:Int) {
+        let recording = self.recordings[row]
+        
+        if urlToPlay == recording {
+            let alert = UIAlertController(title: "Soundfile",
+                                          message: "Choose \(refURL!)?",
+                preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {action in
+                print("yes was tapped \(self.recordings[row])")
+                self.getUrlToPlay(to: recording)
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: {action in
+                print("no was tapped")
+            }))
+            self.present(alert, animated:true, completion:nil)
+        } else {
+            let alert = UIAlertController(title: "Soundfile",
+                                          message: "Choose \(recording.lastPathComponent)?",
+                preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {action in
+                print("yes was tapped \(self.recordings[row])")
+                self.getUrlToPlay(to: recording)
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: {action in
+                print("no was tapped")
+            }))
+            self.present(alert, animated:true, completion:nil)
+        }
+    }
+    
+    func getUrlToPlay(to: URL) {
+        if urlToPlay == to {
+            urlToPlay = refURL
+        } else {
+        urlToPlay = to
+        }
     }
     
 }

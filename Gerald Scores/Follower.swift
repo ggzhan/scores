@@ -29,10 +29,10 @@ func evaluate_OnlineAlignment(testFeatures: [[Float]], oa: OnlineAlignment) -> (
 }
 
 public func follower(soundFileURL: [URL]) {
- let refURL = Bundle.main.url(forResource: "acknowledge1", withExtension: "wav", subdirectory: "/Users/geraldz/Documents/scores-app/Musicr")
- let SwaInstance = Swa(recordings: soundFileURL)
- let refSoundFile = Swa.loadAudioSignal(audioURL: refURL!)
- let testSoundFile = Swa.loadAudioSignal(audioURL: soundFileURL[0])
+ let refURL = Bundle.main.url(forResource: "Ravel - Tzigane", withExtension: "wav")
+ let SwaInstance = SwaBackEnd(recordings: soundFileURL)
+ let refSoundFile = SwaBackEnd.loadAudioSignal(audioURL: refURL!)
+ let testSoundFile = SwaBackEnd.loadAudioSignal(audioURL: soundFileURL[0])
  let refFeatures = SwaInstance.extract_features(x: refSoundFile)
  let testFeatures = SwaInstance.extract_features(x: testSoundFile)
  let onlineAlignment = OnlineAlignment(refFeatures: refFeatures)
@@ -57,8 +57,4 @@ func loadAudioSignal(audioURL: URL) -> [Float] {
  try! file.read(into: buf) // maybe need better error handling
  let floatArray = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
  return floatArray
-}
-
-func getURL() {
- let refURL = Bundle.main.url(forResource: "acknowledge1", withExtension: "wav", subdirectory: "/Users/geraldz/Documents/scores-app/Musicr")
 }

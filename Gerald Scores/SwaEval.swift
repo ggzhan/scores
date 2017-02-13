@@ -65,7 +65,6 @@ class SwaEval {
     }
     */
     func findBars(soundFileURL: [URL]) -> [Float] {
-        let refURL = Bundle.main.url(forResource: "Ravel - Tzigane", withExtension: "wav")
         let SwaInstance = SwaBackEnd(recordings: soundFileURL)
         let refSoundFile = SwaBackEnd.loadAudioSignal(audioURL: refURL!)
         let testSoundFile = SwaBackEnd.loadAudioSignal(audioURL: soundFileURL[0])
@@ -73,7 +72,7 @@ class SwaEval {
         let testFeatures = SwaInstance.extract_features(x: testSoundFile)
         let onlineAlignment = OnlineAlignment(refFeatures: refFeatures)
         var predictedPosition: [Float] = Array(repeating: 0.0, count: testFeatures.count)
-        for (i,chroma) in testFeatures.enumerated(){
+        for (i,chroma) in testFeatures.enumerated(){            // this part is really slow
             predictedPosition[i] = onlineAlignment.align(v: chroma)
         }
         //let predictedPositionInSeconds = predictedPosition.map{$0 / 10.8}
@@ -86,7 +85,7 @@ class SwaEval {
     //input: aligned position
     //output: time in audio file
     func positionToTime(position: [Float]) -> [Float] {
-        let seconds: [Float] = position.map{$0 / (fs/windowSize)} //fs/winSize = number of blocks
+        let seconds: [Float] = position.map{$0 / (fs/windowSize)} //fs/winSize = number of blocks/chromavectors
         return seconds
     }
     
@@ -109,15 +108,15 @@ class SwaEval {
     
     //convert bar to referenceFile time from JSON
     //outputs the refTime that is stored in the JSON file
-    func extractRefTime() -> [Double] {
-        var refTime: [Double] = []
-        var jsonObj: [String: Double]!
+    func extractRefTime() -> [Float] {
+        var jsonObj: [String: AnyObject]!
+        var refTime: [Float] = []
         if let path = Bundle.main.path(forResource: "Tzigane_mapping", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
-                jsonObj = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Double]
+                jsonObj = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject]
                 for i in 1...jsonObj.count {
-                    refTime.append(jsonObj[String(i)]!) // refTime[1]: 3.234
+                    refTime.append(jsonObj[String(i)]! as! Float)
                 }
             } catch let error {
                 print(error.localizedDescription)

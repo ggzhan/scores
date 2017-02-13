@@ -395,29 +395,14 @@ class RecorderViewController: UIViewController {
  @IBOutlet weak var fourierB: UIButton!
  
  @IBAction func fourierB(_ sender: Any) {
-  if recordings.count < 2
+  if recordings.count < 1
   {
    print("no recordings!")
   } else
   {
    
-   var jsonObj: [String: AnyObject]!
-   if let path = Bundle.main.path(forResource: "Tzigane_mapping", ofType: "json") {
-    do {
-     let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
-     jsonObj = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject]
-     for i in 1...jsonObj.count {
-      print(jsonObj[String(i)]!)
-     }
-    } catch let error {
-     print(error.localizedDescription)
-    }
-   } else {
-    print("Invalid filename/path.")
-   }
-  
-   
-   //follower(soundFileURL: recordings)
+      
+   follower(soundFileURL: recordings)
   }
  }
 }

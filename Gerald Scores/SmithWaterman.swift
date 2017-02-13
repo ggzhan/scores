@@ -81,7 +81,7 @@ func scoreFunction(v1: [Float],v2: [Float])-> Float{
     else {return Float(penalty)}
 }
 
-/*  OnlineAlignment from swa.swa
+//  OnlineAlignment from swa.swa
 public class OnlineAlignment {
     var n: Int
     var prevRow: [Float]
@@ -134,8 +134,8 @@ public class OnlineAlignment {
     }
 }
 
-*/
 
+/*
 // from swacython.swa
 public class OnlineAlignment {
     var n: Int
@@ -173,7 +173,6 @@ public class OnlineAlignment {
         }
         self.prevRow = nextRow
         return Float(position)
-
     }
 }
-
+*/
