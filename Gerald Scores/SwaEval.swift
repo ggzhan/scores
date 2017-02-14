@@ -113,7 +113,7 @@ class SwaEval {
                 if (predictedPositionInSeconds[i] > Float(refTime[j])) && (predictedPositionInSeconds[i] < Float(refTime[j+1])) {
                     continue
                 } else {
-                    predictedBarPositions[i] = predictedPositionInSeconds[i]
+                    predictedBarPositions[j] = testFileTime(i)
                 }
             }
         }
@@ -139,6 +139,11 @@ class SwaEval {
             print("Invalid filename/path.")
         }
         return refTime
+    }
+    
+    func testFileTime(_ pos: Int) -> Float {
+        let seconds = Float(pos)/(fs/windowSize)
+        return seconds
     }
     
     

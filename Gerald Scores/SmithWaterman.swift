@@ -13,7 +13,7 @@ import Foundation
 var max1 = 0
 var max2 = 0
 let baseScore = 1
-let penalty = 2
+let penalty = -2
 let threshold: Float = 0.95 // default 0.95
 
 func reset() {
