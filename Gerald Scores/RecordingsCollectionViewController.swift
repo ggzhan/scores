@@ -19,7 +19,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
         
         // set the recordings array
         listRecordings()
-        urlToPlay = urlToPlayUpdate()
+        //urlToPlay = urlToPlayUpdate()
         
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(RecordingsCollectionViewController.longPress(_:)))
         recognizer.minimumPressDuration = 0.5 //seconds
@@ -177,10 +177,6 @@ class RecordingsCollectionViewController: UICollectionViewController {
      }
      */
     
-    func urlToPlayUpdate() -> URL? {
-        return urlToPlay!
-    }
-    
     func listRecordings() {
         
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -315,6 +311,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
             urlToPlay = refURL
         } else {
         urlToPlay = to
+      SwaEvalInstance = SwaEval(soundFileURL: urlToPlay!)
         }
     }
     

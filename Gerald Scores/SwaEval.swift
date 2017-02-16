@@ -21,6 +21,8 @@ class SwaEval {
     let testFeatures: [[Float]]
     let onlineAlignment: OnlineAlignment
     var predictedPosition: UnsafeMutablePointer<Float>
+    var predictedBarPositions: [Float] = []
+    private var refTime: [Float] = []
     
     //URL of recording, could be URL instead of [URL]. Would need to change the recording selection function
     init(soundFileURL: URL) {
@@ -31,6 +33,10 @@ class SwaEval {
         testFeatures = SwaInstance.extract_features(x: testSoundFile)
         onlineAlignment = OnlineAlignment(refFeatures: refFeatures)
         predictedPosition = UnsafeMutablePointer.allocate(capacity: testFeatures.count)
+        extractRefTime()
+        predictedBarPositions = Array(repeating: -1, count: refTime.count)  //-1 means there is no sound for the given bar
+        findBars()
+        
     }
     
     deinit {
@@ -79,17 +85,41 @@ class SwaEval {
         
     }
     */
-    func findBars(soundFileURL: URL) -> [Float] {
-        /*for (i,chroma) in testFeatures.enumerated(){            // this part is really slow
-            predictedPosition[i] = onlineAlignment.align(v: chroma)
-        }
-        */
+    func findBars(){
         for i in 0..<testFeatures.count {
             predictedPosition[i] = onlineAlignment.align(v: testFeatures[i])
+            //print(predictedPosition[i])
+        }
+        let predictedPositionInSeconds = positionToTime(position: predictedPosition)
+      
+        for i in 0..<predictedPositionInSeconds.count {
+            var min: Float = 100
+            //var bar: Int = -1
+            //print("I: ", i)
+            for j in 0..<refTime.count {
+                if (min > abs(predictedPositionInSeconds[i] - refTime[j])) {
+                    //print(abs(predictedPositionInSeconds[i] - refTime[j]), "  ", min)
+                    min = abs(predictedPositionInSeconds[i] - refTime[j])
+                    //bar = j
+                }
+            }
+            //print(bar)
+        }
+        for i in 0..<refTime.count {
+            var min: Float = 100
+            //print("I: ", i)
+            for j in 0..<predictedPositionInSeconds.count {
+                //print("J: ", j)
+                if (min > abs(predictedPositionInSeconds[j] - refTime[i])) {
+                    //print(abs(predictedPositionInSeconds[j] - refTime[i]), "  ", min)
+                    min = abs(predictedPositionInSeconds[j] - refTime[i])
+                    predictedBarPositions[i] = testFileTime(j)          //not robust against jumps in positions
+                   // print(predictedBarPositions[i])
+                }
+            }
+            print(predictedBarPositions[i])
         }
         
-        let predictedBarPositions = timeToBar(predictedPositionInSeconds: positionToTime(position: predictedPosition))
-        return predictedBarPositions
     }
     
     //convert aligned position to time
@@ -98,33 +128,16 @@ class SwaEval {
     func positionToTime(position:  UnsafeMutablePointer<Float>) -> [Float] {
         var seconds: [Float] = Array(repeating: 0.0, count: testFeatures.count)
         for i in 0..<testFeatures.count {
-            seconds[i] = position[i]/(fs/windowSize) //fs/winSize = number of blocks/chromavectors
+            seconds[i] = position[i]/(fs/windowSize) //fs/winSize = number of blocks
         }
         return seconds
     }
     
-    //convert time to bar
-    //maps aligned testSample time to bars from refSample
-    func timeToBar(predictedPositionInSeconds: [Float]) -> [Float] {
-        let refTime = extractRefTime()
-        var predictedBarPositions: [Float] = Array(repeating: -1, count: refTime.count)  //-1 means there is no sound for the given bar
-        for i in 0..<predictedBarPositions.count {
-            for j in 0..<refTime.count-1 {
-                if (predictedPositionInSeconds[i] > Float(refTime[j])) && (predictedPositionInSeconds[i] < Float(refTime[j+1])) {
-                    continue
-                } else {
-                    predictedBarPositions[j] = testFileTime(i)
-                }
-            }
-        }
-        return predictedBarPositions
-    }
     
     //convert bar to referenceFile time from JSON
     //outputs the refTime that is stored in the JSON file
-    func extractRefTime() -> [Float] {
+    private func extractRefTime() {
         var jsonObj: [String: AnyObject]!
-        var refTime: [Float] = []
         if let path = Bundle.main.path(forResource: "Tzigane_mapping", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
@@ -138,7 +151,6 @@ class SwaEval {
         } else {
             print("Invalid filename/path.")
         }
-        return refTime
     }
     
     func testFileTime(_ pos: Int) -> Float {
