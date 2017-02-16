@@ -15,6 +15,7 @@ var max2 = 0
 let baseScore = 1
 let penalty = -2
 let threshold: Float = 0.95 // default 0.95
+let gapScore: Float = -0.5
 
 func reset() {
     max1 = 0
@@ -177,3 +178,114 @@ public class OnlineAlignment {
     }
 }
 
+//based on Alex cOnlinealignment from cswa.pyx
+public class COnlineAlignment {
+    var n: Int //number of refFeatures
+    var refFeatures: [[Float]]
+    var prevRow: [Float]
+    var ringbuffer: [Float] = Array(repeating: 0.0, count: 100)
+    var rn: Int //Length of ringbuffer for confidence
+    var ri: Int // Index for ringbuffer for confidence
+    var rAvgX: Float // Average x value for given length
+    var rDen: Float // Denominator for fixed length rn
+    var m: Float //Slope
+    var confidentInRegression: Bool
+    
+    init(refFeatures: [[Float]], confidentInRegression: Bool = false) {
+        self.refFeatures = refFeatures
+        self.n = refFeatures.count
+        self.prevRow = Array(repeating: 0.0, count: self.n+1)
+        
+        //ringbuffer/regression. Need to allocate ringbuffer size 200
+        self.rn = self.ringbuffer.count
+        self.ri = 0
+        self.rAvgX = Float(self.rn-1)/2
+        
+        //Denominator
+        self.rDen = 0
+        for i in 0..<Int(self.rn) {
+            self.rDen += (Float(i) - self.rAvgX) * (Float(i) - self.rAvgX)
+        }
+        self.rDen /= Float(self.rn)
+        self.m = 0
+        self.confidentInRegression = confidentInRegression
+    }
+    
+    func align(v: [Float]) -> Float {
+        var position: Float = 0
+        var match: Float
+        var delete: Float
+        var insert: Float
+        var maxVal: Float = 0.0
+        var val: Float
+        var nextRow: [Float] = Array(repeating: 0.0, count: self.n+1)
+        
+        //Reset prevRw if slope of linear regression of ringbuffer is
+        // low (i.e. confidence too low)
+        if self.confidentInRegression {
+            self.m = self.slope()
+            if self.m < 0 {
+                self.reset()
+            }
+        }
+        
+        //Single Smith Waterman iteration
+        for i in 1...self.n {
+            match = self.prevRow[i-1] + scoreFunction(v1: v, v2: self.refFeatures[i-1])
+            delete = self.prevRow[i] + gapScore
+            insert = nextRow[i-1] + gapScore
+            
+            val = max(0.0, match, delete, insert)
+            
+            if maxVal < val {
+                position = Float(i-1)
+                maxVal = val
+            }
+            
+            nextRow[i] = val
+        }
+        
+        self.prevRow = nextRow
+        
+        //Push maxVal to ringbuffer
+        self.ringbuffer[self.ri] = maxVal
+        self.ri = (self.ri + 1) % (self.rn)
+        
+        return position
+    }
+    
+    func reset() {
+        //reset self.prevRow and self.ringbuffer
+        self.prevRow = Array(repeating: 0.0, count: self.n+1)
+        for i in 0..<Int(self.rn) {
+            self.ringbuffer[i] = 0
+        }
+    }
+    
+    func slope() -> Float {
+        //returns the slope of the linear regression of the maxVals inside the self.ringbuffer
+        var maxVal: Float = 0.0
+        var avgY: Float = 0.0
+        var num: Float = 0.0
+        
+        // Average y/ maxVal value and maximum maxVal
+        for i in 0..<self.rn {
+            avgY += self.ringbuffer[i]
+            maxVal = max(maxVal, self.ringbuffer[i])
+        }
+        avgY /= Float(self.rn)
+        
+        // If maximum maxVal is too low, don`t reset
+        if maxVal < 150 {
+            return 1.0
+        }
+        
+        // Calculate slope of linear regression
+        for i in 0..<self.rn {
+            num += (Float(i)-self.rAvgX) * (self.ringbuffer[(self.ri+1+i) % self.rn] - avgY)
+        }
+        
+        m = num/self.rDen
+        return m
+    }
+}

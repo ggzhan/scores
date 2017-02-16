@@ -19,7 +19,8 @@ class SwaEval {
     let testSoundFile: [Float]
     let refFeatures: [[Float]]
     let testFeatures: [[Float]]
-    let onlineAlignment: OnlineAlignment
+    //let onlineAlignment: OnlineAlignment
+    let onlineAlignment: COnlineAlignment
     var predictedPosition: UnsafeMutablePointer<Float>
     var predictedBarPositions: [Float] = []
     private var refTime: [Float] = []
@@ -31,7 +32,8 @@ class SwaEval {
         testSoundFile = SwaBackEnd.loadAudioSignal(audioURL: soundFileURL)
         refFeatures = SwaInstance.extract_features(x: refSoundFile)
         testFeatures = SwaInstance.extract_features(x: testSoundFile)
-        onlineAlignment = OnlineAlignment(refFeatures: refFeatures)
+        //onlineAlignment = OnlineAlignment(refFeatures: refFeatures)
+        onlineAlignment = COnlineAlignment(refFeatures: refFeatures)
         predictedPosition = UnsafeMutablePointer.allocate(capacity: testFeatures.count)
         extractRefTime()
         predictedBarPositions = Array(repeating: -1, count: refTime.count)  //-1 means there is no sound for the given bar
@@ -88,7 +90,7 @@ class SwaEval {
     func findBars(){
         for i in 0..<testFeatures.count {
             predictedPosition[i] = onlineAlignment.align(v: testFeatures[i])
-            //print(predictedPosition[i])
+            print(predictedPosition[i])
         }
         let predictedPositionInSeconds = positionToTime(position: predictedPosition)
       
