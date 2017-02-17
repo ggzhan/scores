@@ -196,7 +196,7 @@ public class COnlineAlignment {
         self.n = refFeatures.count
         self.prevRow = Array(repeating: 0.0, count: self.n+1)
         
-        //ringbuffer/regression. Need to allocate ringbuffer size 200
+        //ringbuffer/regression
         self.rn = self.ringbuffer.count
         self.ri = 0
         self.rAvgX = Float(self.rn-1)/2

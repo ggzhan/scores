@@ -21,7 +21,7 @@ class SwaEval {
     let testFeatures: [[Float]]
     //let onlineAlignment: OnlineAlignment
     let onlineAlignment: COnlineAlignment
-    var predictedPosition: UnsafeMutablePointer<Float>
+    var predictedPosition: [Float] = []
     var predictedBarPositions: [Float] = []
     private var refTime: [Float] = []
     
@@ -34,16 +34,13 @@ class SwaEval {
         testFeatures = SwaInstance.extract_features(x: testSoundFile)
         //onlineAlignment = OnlineAlignment(refFeatures: refFeatures)
         onlineAlignment = COnlineAlignment(refFeatures: refFeatures)
-        predictedPosition = UnsafeMutablePointer.allocate(capacity: testFeatures.count)
+        //predictedPosition = UnsafeMutablePointer.allocate(capacity: testFeatures.count)
         extractRefTime()
         predictedBarPositions = Array(repeating: -1, count: refTime.count)  //-1 means there is no sound for the given bar
         findBars()
         
     }
-    
-    deinit {
-        predictedPosition.deallocate(capacity: testFeatures.count)
-    }
+
     /*  //Don´t need for now
     func evaluate_OnlineAlignment(testFeatures: [[Float]], oa: OnlineAlignment) -> ( [Float], [Float], [Float]) {
         let n = testFeatures.count
@@ -89,8 +86,14 @@ class SwaEval {
     */
     func findBars(){
         for i in 0..<testFeatures.count {
-            predictedPosition[i] = onlineAlignment.align(v: testFeatures[i])
-            print(predictedPosition[i])
+            predictedPosition.append(onlineAlignment.align(v: testFeatures[i]))
+        }
+
+        let predictedPositionRegression = linearRegression(predictedPosition) //Regression used for testing. introduced an offset, which wasn`t good
+        
+        //printing out the array
+        for i in 0..<predictedPositionRegression.count {
+            print(predictedPositionRegression[i])
         }
         let predictedPositionInSeconds = positionToTime(position: predictedPosition)
       
@@ -127,9 +130,10 @@ class SwaEval {
     //convert aligned position to time
     //input: aligned position
     //output: time in audio file
-    func positionToTime(position:  UnsafeMutablePointer<Float>) -> [Float] {
+    func positionToTime(position:  [Float]) -> [Float] {
         var seconds: [Float] = Array(repeating: 0.0, count: testFeatures.count)
-        for i in 0..<testFeatures.count {
+        //for i in 0..<testFeatures.count {
+        for i in 0..<position.count {
             seconds[i] = position[i]/(fs/windowSize) //fs/winSize = number of blocks
         }
         return seconds
@@ -158,6 +162,36 @@ class SwaEval {
     func testFileTime(_ pos: Int) -> Float {
         let seconds = Float(pos)/(fs/windowSize)
         return seconds
+    }
+    
+    func average(_ input: [Float]) -> Float {
+        return input.reduce(0, +) / Float(input.count)
+    }
+    
+    func average(_ input: [Int]) -> Float {
+        return Float(input.reduce(0, +)) / Float(input.count)
+    }
+    
+    // Muss das wirklich sein....
+    func multiply(_ a: [Float], _ b: [Int]) -> [Float] {
+        var ret: [Float] = []
+        for i in 0..<a.count {
+            ret.append(a[i] * Float(b[i]))
+        }
+        return ret
+    }
+
+    func linearRegression(_ posX: [Float]) -> [Float] {
+        let posY = Array(0...posX.count)
+        let sum1 = average(multiply(posX, posY)) - average(posX) * average(posY)
+        let sum2 = average(zip(posX, posX).map(*)) - powf(average(posX), 2)
+        let slope = sum1 / sum2
+        let intercept = average(posY) - slope * average(posX)
+        var ret: [Float] = []
+        for i in 0..<posX.count {
+            ret.append((Float(posY[i])-intercept) / slope)
+        }
+        return ret
     }
     
     

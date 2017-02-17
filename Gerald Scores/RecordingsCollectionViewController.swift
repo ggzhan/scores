@@ -9,7 +9,8 @@ let reuseIdentifier = "recordingCell"
 class RecordingsCollectionViewController: UICollectionViewController {
     
     var recordings = [URL]()
-    var player:AVAudioPlayer!
+    var player: AVAudioPlayer!
+    var isPlaying = false
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +20,6 @@ class RecordingsCollectionViewController: UICollectionViewController {
         
         // set the recordings array
         listRecordings()
-        //urlToPlay = urlToPlayUpdate()
         
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(RecordingsCollectionViewController.longPress(_:)))
         recognizer.minimumPressDuration = 0.5 //seconds
@@ -145,19 +145,23 @@ class RecordingsCollectionViewController: UICollectionViewController {
     
     func play(_ url:URL) {
         print("playing \(url)")
-        
         do {
-            self.player = try AVAudioPlayer(contentsOf: url)
-            player.prepareToPlay()
-            player.volume = 1.0
-            player.play()
+            if isPlaying{
+                player.stop()
+                isPlaying = false
+            }  else {
+                self.player = try AVAudioPlayer(contentsOf: url)
+                player.prepareToPlay()
+                player.volume = 1.0
+                player.play()
+                isPlaying = true
+            }
         } catch let error as NSError {
             self.player = nil
             print(error.localizedDescription)
         } catch {
             print("AVAudioPlayer init failed")
         }
-        
     }
     
     
