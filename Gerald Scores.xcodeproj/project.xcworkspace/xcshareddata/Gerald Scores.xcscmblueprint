@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C103A1730FA59B83FEC303310CA9077510D5BC70",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C103A1730FA59B83FEC303310CA9077510D5BC70" : 9223372036854775807,
+    "F97B279AAC81E410FD13838B574C78D555BAD4DC" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "9ED8B9BA-4DEE-435B-AF44-AF17D7C94338",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C103A1730FA59B83FEC303310CA9077510D5BC70" : "Gerald%20Scores\/",
+    "F97B279AAC81E410FD13838B574C78D555BAD4DC" : "..\/scores-app"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Gerald Scores",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Gerald Scores.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ggzhan\/scores",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C103A1730FA59B83FEC303310CA9077510D5BC70"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/apps.bonsai-systems.com:8080\/bonsai\/scores-app.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F97B279AAC81E410FD13838B574C78D555BAD4DC"
+    }
+  ]
+}
