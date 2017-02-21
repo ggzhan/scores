@@ -89,12 +89,15 @@ class SwaEval {
             predictedPosition.append(onlineAlignment.align(v: testFeatures[i]))
         }
 
-        let predictedPositionRegression = linearRegression(predictedPosition) //Regression used for testing. introduced an offset, which wasn`t good
+        /* not working yet
+         let predictedPositionRegression = linearRegression(predictedPosition) //Regression used for testing. introduced an offset, which wasn`t good
         
+         let predictedPositionSmooth = smooth(predictedPosition)
         //printing out the array
         for i in 0..<predictedPositionRegression.count {
-            print(predictedPositionRegression[i])
+            print(predictedPositionSmooth[i])
         }
+         */
         let predictedPositionInSeconds = positionToTime(position: predictedPosition)
       
         for i in 0..<predictedPositionInSeconds.count {
@@ -180,7 +183,11 @@ class SwaEval {
         }
         return ret
     }
-
+    
+    func multiply(_ a: [Float], _ b: [Float]) -> [Float] {
+        return zip(a,b).map(*)
+    }
+    
     func linearRegression(_ posX: [Float]) -> [Float] {
         let posY = Array(0...posX.count)
         let sum1 = average(multiply(posX, posY)) - average(posX) * average(posY)
@@ -190,6 +197,70 @@ class SwaEval {
         var ret: [Float] = []
         for i in 0..<posX.count {
             ret.append((Float(posY[i])-intercept) / slope)
+        }
+        return ret
+    }
+    
+    func derivitave(_ input: [Float]) -> [Float] {
+        var ret: [Float] = []
+        for i in 0..<input.count-1 {
+            ret.append(input[i+1]-input[i])
+        }
+        return ret
+    }
+    
+    
+    //Counter system not working. Need to implement a gaussian smoothing beforehand. And a segmentation algorithm together with slope as a condition would be much better.
+    func smooth(_ input: [Float]) -> [Float] {
+        let threshold: Float = 150
+        let d_input = derivitave(input)
+        var jumpCounter: Int = 0
+        var ret = input
+        var leftValue: [Float] = [] //random wrong number for debugging
+        var rightValue: [Float] = [] //random wrong number for debugging
+        var leftIndex: [Int] = []
+        var rightIndex: [Int] = []
+        
+        
+        //find the points before and after the jumps
+        for i in 5..<d_input.count {
+            if abs(d_input[i]) > threshold && d_input[i] > 0 && jumpCounter == 0 {   //positive jump
+                jumpCounter += 1
+                leftValue.append(input[i])
+                leftIndex.append(i)
+            }
+            if abs(d_input[i]) > threshold && d_input[i] < 0 && jumpCounter > 0 {   //negative jump after pos jump
+                jumpCounter -= 1
+                rightValue.append(input[i+1])
+                rightIndex.append(i)
+            }
+            if abs(d_input[i]) > threshold && d_input[i] < 0 && jumpCounter == 0 {   //negative jump
+                jumpCounter -= 1
+                leftValue.append(input[i])
+                leftIndex.append(i)
+            }
+            if abs(d_input[i]) > threshold && d_input[i] > 0 && jumpCounter < 0 {   //positive jump after neg jump
+                jumpCounter += 1
+                rightValue.append(input[i+1])
+                rightIndex.append(i)
+            }
+        }
+        
+        //smooth the jumps
+        for i in 0..<min(leftIndex.count, rightIndex.count) {
+            var slope: Float = 1
+            var offset: Float = 0
+            if leftValue[i]==rightValue[i] {
+                slope = 1
+                offset = leftValue[i]
+            } else {
+                slope = Float(rightIndex[i] - leftIndex[i]) / (rightValue[i] - leftValue[i])
+                offset = Float(leftIndex[i]) - slope*leftValue[i]
+            }
+            for j in leftIndex[i]...rightIndex[i] {
+                ret[j] = (Float(j) - offset) / slope
+                print("j: ", j)
+            }
         }
         return ret
     }
