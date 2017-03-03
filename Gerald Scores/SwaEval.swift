@@ -10,10 +10,8 @@ import Foundation
 import AVFoundation
 
 class SwaEval {
-    //let refURL = Bundle.main.url(forResource: "Ravel-Tzigane", withExtension: "wav")
     let fs: Float = 44100
     let windowSize: Float = 4096
-    //let predictedBarPositions = findBars(soundFileURL: soundFileURL)
     let SwaInstance: SwaBackEnd
     let refSoundFile: [Float]
     let testSoundFile: [Float]
@@ -88,7 +86,7 @@ class SwaEval {
         for i in 0..<testFeatures.count {
             predictedPosition.append(onlineAlignment.align(v: testFeatures[i]))
         }
-
+        print(predictedPosition)
         /* not working yet
          let predictedPositionRegression = linearRegression(predictedPosition) //Regression used for testing. introduced an offset, which wasn`t good
         
@@ -108,10 +106,8 @@ class SwaEval {
                 if (min > abs(predictedPositionInSeconds[i] - refTime[j])) {
                     //print(abs(predictedPositionInSeconds[i] - refTime[j]), "  ", min)
                     min = abs(predictedPositionInSeconds[i] - refTime[j])
-                    //bar = j
                 }
             }
-            //print(bar)
         }
         for i in 0..<refTime.count {
             var min: Float = 100
@@ -122,12 +118,10 @@ class SwaEval {
                     //print(abs(predictedPositionInSeconds[j] - refTime[i]), "  ", min)
                     min = abs(predictedPositionInSeconds[j] - refTime[i])
                     predictedBarPositions[i] = testFileTime(j)          //not robust against jumps in positions
-                   // print(predictedBarPositions[i])
                 }
             }
             print(predictedBarPositions[i])
         }
-        
     }
     
     //convert aligned position to time
@@ -135,7 +129,6 @@ class SwaEval {
     //output: time in audio file
     func positionToTime(position:  [Float]) -> [Float] {
         var seconds: [Float] = Array(repeating: 0.0, count: testFeatures.count)
-        //for i in 0..<testFeatures.count {
         for i in 0..<position.count {
             seconds[i] = position[i]/(fs/windowSize) //fs/winSize = number of blocks
         }

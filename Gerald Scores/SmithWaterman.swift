@@ -247,6 +247,7 @@ public class COnlineAlignment {
         
         self.prevRow = nextRow
         
+        
         //Push maxVal to ringbuffer
         self.ringbuffer[self.ri] = maxVal
         self.ri = (self.ri + 1) % (self.rn)
